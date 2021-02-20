@@ -8,7 +8,9 @@ const movie = {
   genre: `Drama`,
 };
 
+const movies = [`Fantastic Beasts`, `Bohemian Rhapsody`, `Macbeth`];
+
 ReactDOM.render(
-    <App movie={movie}/>,
+    <App movie={movie} movies={movies}/>,
     document.querySelector(`#root`)
 );
