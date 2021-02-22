@@ -7,7 +7,11 @@ const App = (props) => {
   const {movie, movies} = props;
 
   return (
-    <Main movie={movie} movies={movies}/>
+    <Main
+      movie={movie}
+      movies={movies}
+      onTitleClickHandler={() => {}}
+    />
   );
 };
 
@@ -18,6 +22,7 @@ App.propTypes = {
     genre: PropTypes.string.isRequired,
   }).isRequired,
   movies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onTitleClickHandler: PropTypes.func.isRequired,
 };
 
 export default App;
