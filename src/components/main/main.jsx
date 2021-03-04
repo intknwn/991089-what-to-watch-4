@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import MoviesList from '../movies-list/movies-list.jsx';
 
 const Main = (props) => {
   const {movie, movies, onTitleClickHandler} = props;
@@ -89,20 +90,7 @@ const Main = (props) => {
               <a href="#" className="catalog__genres-link">Thrillers</a>
             </li>
           </ul>
-          <div className="catalog__movies-list">
-            {movies.map((movieName) => {
-              return (
-                <article key={movieName} className="small-movie-card catalog__movies-card">
-                  <div className="small-movie-card__image">
-                    <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt={movieName} width={280} height={175} />
-                  </div>
-                  <h3 className="small-movie-card__title" onClick={onTitleClickHandler}>
-                    <a className="small-movie-card__link" href="movie-page.html">{movieName}</a>
-                  </h3>
-                </article>
-              );
-            })}
-          </div>
+          <MoviesList movies={movies} onTitleClickHandler={onTitleClickHandler} />
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
@@ -130,7 +118,10 @@ Main.propTypes = {
     year: PropTypes.number.isRequired,
     genre: PropTypes.string.isRequired,
   }).isRequired,
-  movies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  movies: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    previewImg: PropTypes.string.isRequired,
+  })).isRequired,
   onTitleClickHandler: PropTypes.func.isRequired,
 };
 

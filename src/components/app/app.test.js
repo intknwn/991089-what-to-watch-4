@@ -8,7 +8,22 @@ const movie = {
   genre: `Action`,
 };
 
-const movies = [`Falling down`, `Apocalypse Now`, `The Terminator`];
+const movies = [{
+  name: `Fantastic Beasts: The Crimes of Grindelwald`,
+  previewImg: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+},
+{
+  name: `Bohemian Rhapsody`,
+  previewImg: `img/bohemian-rhapsody.jpg`,
+},
+{
+  name: `Macbeth`,
+  previewImg: `img/macbeth.jpg`,
+},
+{
+  name: `Aviator`,
+  previewImg: `img/aviator.jpg`,
+}];
 
 it(`App component should render application`, () => {
   const tree = renderer

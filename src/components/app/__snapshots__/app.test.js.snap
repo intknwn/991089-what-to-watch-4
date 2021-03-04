@@ -259,12 +259,13 @@ exports[`App component should render application 1`] = `
       >
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <img
-              alt="Falling down"
+              alt="Fantastic Beasts: The Crimes of Grindelwald"
               height={175}
               src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
               width={280}
@@ -278,20 +279,21 @@ exports[`App component should render application 1`] = `
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Falling down
+              Fantastic Beasts: The Crimes of Grindelwald
             </a>
           </h3>
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <img
-              alt="Apocalypse Now"
+              alt="Bohemian Rhapsody"
               height={175}
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              src="img/bohemian-rhapsody.jpg"
               width={280}
             />
           </div>
@@ -303,20 +305,21 @@ exports[`App component should render application 1`] = `
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Apocalypse Now
+              Bohemian Rhapsody
             </a>
           </h3>
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <img
-              alt="The Terminator"
+              alt="Macbeth"
               height={175}
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              src="img/macbeth.jpg"
               width={280}
             />
           </div>
@@ -328,7 +331,33 @@ exports[`App component should render application 1`] = `
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              The Terminator
+              Macbeth
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+          >
+            <img
+              alt="Aviator"
+              height={175}
+              src="img/aviator.jpg"
+              width={280}
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+            onClick={[Function]}
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+            >
+              Aviator
             </a>
           </h3>
         </article>

@@ -1,12 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Main from './main.jsx';
-
-const movie = {
-  name: `Die Hard`,
-  year: 1988,
-  genre: `Action`,
-};
+import MoviesList from './movies-list.jsx';
 
 const movies = [{
   name: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -25,16 +19,13 @@ const movies = [{
   previewImg: `img/aviator.jpg`,
 }];
 
-it(`Main component should render main screen`, () => {
-  const tree = renderer
-      .create(
-          <Main
-            movie={movie}
-            movies={movies}
-            onTitleClickHandler={() => {}}
-          />
-      )
-      .toJSON();
+it(`MoviesList component should render list of movies`, () => {
+  const tree = renderer.create(
+      <MoviesList
+        movies={movies}
+        onTitleClickHandler={() => {}}
+      />
+  ).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

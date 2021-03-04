@@ -1,5 +1,5 @@
 import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
+import Enzyme, {mount} from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import Main from './main.jsx';
 
@@ -13,12 +13,27 @@ const movie = {
   genre: `Action`,
 };
 
-const movies = [`Falling down`, `Apocalypse Now`, `The Terminator`];
+const movies = [{
+  name: `Fantastic Beasts: The Crimes of Grindelwald`,
+  previewImg: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+},
+{
+  name: `Bohemian Rhapsody`,
+  previewImg: `img/bohemian-rhapsody.jpg`,
+},
+{
+  name: `Macbeth`,
+  previewImg: `img/macbeth.jpg`,
+},
+{
+  name: `Aviator`,
+  previewImg: `img/aviator.jpg`,
+}];
 
 it(`Click on list item's title should trigger callback function`, () => {
   const onTitleClickHandler = jest.fn();
 
-  const mainScreen = shallow(
+  const mainScreen = mount(
       <Main
         movie={movie}
         movies={movies}
@@ -29,5 +44,5 @@ it(`Click on list item's title should trigger callback function`, () => {
   const titles = mainScreen.find(`.small-movie-card__title`);
   titles.forEach((title) => title.simulate(`click`));
 
-  expect(onTitleClickHandler.mock.calls.length).toBe(3);
+  expect(onTitleClickHandler.mock.calls.length).toBe(4);
 });
