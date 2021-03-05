@@ -120,7 +120,15 @@ Main.propTypes = {
   }).isRequired,
   movies: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
-    previewImg: PropTypes.string.isRequired,
+    backgroundImg: PropTypes.string.isRequired,
+    posterImg: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    score: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    director: PropTypes.string.isRequired,
+    cast: PropTypes.string.isRequired,
   })).isRequired,
   onTitleClickHandler: PropTypes.func.isRequired,
 };

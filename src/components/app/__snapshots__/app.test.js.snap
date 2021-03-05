@@ -259,6 +259,7 @@ exports[`App component should render application 1`] = `
       >
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
           onMouseEnter={[Function]}
         >
           <div
@@ -273,7 +274,6 @@ exports[`App component should render application 1`] = `
           </div>
           <h3
             className="small-movie-card__title"
-            onClick={[Function]}
           >
             <a
               className="small-movie-card__link"
@@ -285,6 +285,7 @@ exports[`App component should render application 1`] = `
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
           onMouseEnter={[Function]}
         >
           <div
@@ -299,7 +300,6 @@ exports[`App component should render application 1`] = `
           </div>
           <h3
             className="small-movie-card__title"
-            onClick={[Function]}
           >
             <a
               className="small-movie-card__link"
@@ -311,53 +311,53 @@ exports[`App component should render application 1`] = `
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
           onMouseEnter={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <img
-              alt="Macbeth"
+              alt="We need to talk about Kevin"
               height={175}
-              src="img/macbeth.jpg"
+              src="img/we-need-to-talk-about-kevin.jpg"
               width={280}
             />
           </div>
           <h3
             className="small-movie-card__title"
-            onClick={[Function]}
           >
             <a
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Macbeth
+              We need to talk about Kevin
             </a>
           </h3>
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
           onMouseEnter={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <img
-              alt="Aviator"
+              alt="What We Do in the Shadows"
               height={175}
-              src="img/aviator.jpg"
+              src="img/what-we-do-in-the-shadows.jpg"
               width={280}
             />
           </div>
           <h3
             className="small-movie-card__title"
-            onClick={[Function]}
           >
             <a
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Aviator
+              What We Do in the Shadows
             </a>
           </h3>
         </article>

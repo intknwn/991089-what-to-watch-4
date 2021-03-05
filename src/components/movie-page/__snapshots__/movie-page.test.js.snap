@@ -1,80 +1,71 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Main component should render main screen 1`] = `
+exports[`MoviePage component should render page with movie details 1`] = `
 <div>
   <section
-    className="movie-card"
+    className="movie-card movie-card--full"
   >
     <div
-      className="movie-card__bg"
-    >
-      <img
-        alt="Die Hard"
-        src="img/bg-the-grand-budapest-hotel.jpg"
-      />
-    </div>
-    <h1
-      className="visually-hidden"
-    >
-      WTW
-    </h1>
-    <header
-      className="page-header movie-card__head"
+      className="movie-card__hero"
     >
       <div
-        className="logo"
+        className="movie-card__bg"
       >
-        <a
-          className="logo__link"
-        >
-          <span
-            className="logo__letter logo__letter--1"
-          >
-            W
-          </span>
-          <span
-            className="logo__letter logo__letter--2"
-          >
-            T
-          </span>
-          <span
-            className="logo__letter logo__letter--3"
-          >
-            W
-          </span>
-        </a>
+        <img
+          alt="Die Hard"
+          src="https://via.placeholder.com/1300x552"
+        />
       </div>
-      <div
-        className="user-block"
+      <h1
+        className="visually-hidden"
+      >
+        WTW
+      </h1>
+      <header
+        className="page-header movie-card__head"
       >
         <div
-          className="user-block__avatar"
+          className="logo"
         >
-          <img
-            alt="User avatar"
-            height={63}
-            src="img/avatar.jpg"
-            width={63}
-          />
+          <a
+            className="logo__link"
+            href="main.html"
+          >
+            <span
+              className="logo__letter logo__letter--1"
+            >
+              W
+            </span>
+            <span
+              className="logo__letter logo__letter--2"
+            >
+              T
+            </span>
+            <span
+              className="logo__letter logo__letter--3"
+            >
+              W
+            </span>
+          </a>
         </div>
-      </div>
-    </header>
-    <div
-      className="movie-card__wrap"
-    >
-      <div
-        className="movie-card__info"
-      >
         <div
-          className="movie-card__poster"
+          className="user-block"
         >
-          <img
-            alt="Die Hard poster"
-            height={327}
-            src="img/the-grand-budapest-hotel-poster.jpg"
-            width={218}
-          />
+          <div
+            className="user-block__avatar"
+          >
+            <img
+              alt="User avatar"
+              height={63}
+              src="img/avatar.jpg"
+              width={63}
+            />
+          </div>
         </div>
+      </header>
+      <div
+        className="movie-card__wrap"
+      >
         <div
           className="movie-card__desc"
         >
@@ -134,6 +125,118 @@ exports[`Main component should render main screen 1`] = `
                 My list
               </span>
             </button>
+            <a
+              className="btn movie-card__button"
+              href="add-review.html"
+            >
+              Add review
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="movie-card__wrap movie-card__translate-top"
+    >
+      <div
+        className="movie-card__info"
+      >
+        <div
+          className="movie-card__poster movie-card__poster--big"
+        >
+          <img
+            alt="https://via.placeholder.com/273x410 poster"
+            height={327}
+            src="https://via.placeholder.com/273x410"
+            width={218}
+          />
+        </div>
+        <div
+          className="movie-card__desc"
+        >
+          <nav
+            className="movie-nav movie-card__nav"
+          >
+            <ul
+              className="movie-nav__list"
+            >
+              <li
+                className="movie-nav__item movie-nav__item--active"
+              >
+                <a
+                  className="movie-nav__link"
+                  href="#"
+                >
+                  Overview
+                </a>
+              </li>
+              <li
+                className="movie-nav__item"
+              >
+                <a
+                  className="movie-nav__link"
+                  href="#"
+                >
+                  Details
+                </a>
+              </li>
+              <li
+                className="movie-nav__item"
+              >
+                <a
+                  className="movie-nav__link"
+                  href="#"
+                >
+                  Reviews
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div
+            className="movie-rating"
+          >
+            <div
+              className="movie-rating__score"
+            >
+              8.2
+            </div>
+            <p
+              className="movie-rating__meta"
+            >
+              <span
+                className="movie-rating__level"
+              >
+                Very good
+              </span>
+              <span
+                className="movie-rating__count"
+              >
+                796619 ratings
+              </span>
+            </p>
+          </div>
+          <div
+            className="movie-card__text"
+          >
+            <p>
+              An NYPD officer tries to save his wife and several others taken hostage by German terrorists during a Christmas party at the Nakatomi Plaza in Los Angeles.
+            </p>
+            <p
+              className="movie-card__director"
+            >
+              <strong>
+                Director: 
+                John McTiernan
+              </strong>
+            </p>
+            <p
+              className="movie-card__starring"
+            >
+              <strong>
+                Starring: 
+                Bruce Willis, Alan Rickman, Bonnie Bedelia
+              </strong>
+            </p>
           </div>
         </div>
       </div>
@@ -143,124 +246,18 @@ exports[`Main component should render main screen 1`] = `
     className="page-content"
   >
     <section
-      className="catalog"
+      className="catalog catalog--like-this"
     >
       <h2
-        className="catalog__title visually-hidden"
+        className="catalog__title"
       >
-        Catalog
+        More like this
       </h2>
-      <ul
-        className="catalog__genres-list"
-      >
-        <li
-          className="catalog__genres-item catalog__genres-item--active"
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-          >
-            All genres
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item"
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-          >
-            Comedies
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item"
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-          >
-            Crime
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item"
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-          >
-            Documentary
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item"
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-          >
-            Dramas
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item"
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-          >
-            Horror
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item"
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-          >
-            Kids & Family
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item"
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-          >
-            Romance
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item"
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-          >
-            Sci-Fi
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item"
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-          >
-            Thrillers
-          </a>
-        </li>
-      </ul>
       <div
         className="catalog__movies-list"
       >
         <article
           className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -285,8 +282,6 @@ exports[`Main component should render main screen 1`] = `
         </article>
         <article
           className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -311,16 +306,14 @@ exports[`Main component should render main screen 1`] = `
         </article>
         <article
           className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <img
-              alt="We need to talk about Kevin"
+              alt="Macbeth"
               height={175}
-              src="img/we-need-to-talk-about-kevin.jpg"
+              src="img/macbeth.jpg"
               width={280}
             />
           </div>
@@ -331,22 +324,20 @@ exports[`Main component should render main screen 1`] = `
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              We need to talk about Kevin
+              Macbeth
             </a>
           </h3>
         </article>
         <article
           className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <img
-              alt="What We Do in the Shadows"
+              alt="Aviator"
               height={175}
-              src="img/what-we-do-in-the-shadows.jpg"
+              src="img/aviator.jpg"
               width={280}
             />
           </div>
@@ -357,20 +348,10 @@ exports[`Main component should render main screen 1`] = `
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              What We Do in the Shadows
+              Aviator
             </a>
           </h3>
         </article>
-      </div>
-      <div
-        className="catalog__more"
-      >
-        <button
-          className="catalog__button"
-          type="button"
-        >
-          Show more
-        </button>
       </div>
     </section>
     <footer
@@ -381,6 +362,7 @@ exports[`Main component should render main screen 1`] = `
       >
         <a
           className="logo__link logo__link--light"
+          href="main.html"
         >
           <span
             className="logo__letter logo__letter--1"

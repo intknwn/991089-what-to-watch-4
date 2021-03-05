@@ -28,3 +28,22 @@ it(`Hover on movie card should trigger callback with active movie as an argument
 
   expect(movieCardHoverHandler).toBeCalledWith(movie);
 });
+
+it(`Click on movie card should trigger callback with active movie as an argument`, () => {
+  const movieCardClickHandler = jest.fn();
+
+  const movieCard = shallow(
+      <MovieCard
+        movie={movie}
+        onClick={movieCardClickHandler}
+        onHover={() => {}}
+      />
+  );
+
+  const card = movieCard.find(`.small-movie-card`);
+  card.simulate(`click`, {
+    preventDefault: () => {}
+  });
+
+  expect(movieCardClickHandler).toBeCalledWith(movie);
+});
