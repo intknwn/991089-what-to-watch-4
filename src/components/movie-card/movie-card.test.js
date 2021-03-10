@@ -7,6 +7,7 @@ const movie = {
   previewImg: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
   backgroundImg: `https://via.placeholder.com/1300x552`,
   posterImg: `https://via.placeholder.com/273x410`,
+  previewVid: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   genre: `Fantasy`,
   year: 2018,
   rating: 6.6,
@@ -22,6 +23,9 @@ it(`MovieCard component should render movie card`, () => {
         movie={movie}
         onHover={() => {}}
         onClick={() => {}}
+        isPlaying={false}
+        onMouseEnter={() => {}}
+        onMouseLeave={() => {}}
       />
   ).toJSON();
 

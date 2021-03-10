@@ -7,6 +7,7 @@ const movie = {
   previewImg: `img/die-hard.jpg`,
   backgroundImg: `https://via.placeholder.com/1300x552`,
   posterImg: `https://via.placeholder.com/273x410`,
+  previewVid: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   genre: `Action`,
   year: 1988,
   rating: 8.2,

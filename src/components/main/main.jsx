@@ -122,6 +122,7 @@ Main.propTypes = {
     name: PropTypes.string.isRequired,
     backgroundImg: PropTypes.string.isRequired,
     posterImg: PropTypes.string.isRequired,
+    previewVid: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,

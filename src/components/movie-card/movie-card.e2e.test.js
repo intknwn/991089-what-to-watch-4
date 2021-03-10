@@ -10,6 +10,7 @@ Enzyme.configure({
 const movie = {
   name: `Fantastic Beasts: The Crimes of Grindelwald`,
   previewImg: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+  previewVid: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
 };
 
 it(`Hover on movie card should trigger callback with active movie as an argument`, () => {
@@ -19,7 +20,9 @@ it(`Hover on movie card should trigger callback with active movie as an argument
       <MovieCard
         movie={movie}
         onClick={() => {}}
-        onHover={movieCardHoverHandler}
+        isPlaying={false}
+        onMouseEnter={movieCardHoverHandler}
+        onMouseLeave={() => {}}
       />
   );
 
@@ -36,7 +39,9 @@ it(`Click on movie card should trigger callback with active movie as an argument
       <MovieCard
         movie={movie}
         onClick={movieCardClickHandler}
-        onHover={() => {}}
+        isPlaying={false}
+        onMouseEnter={() => {}}
+        onMouseLeave={() => {}}
       />
   );
 

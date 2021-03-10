@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MovieCard from '../movie-card/movie-card.jsx';
+import withAudioPlayer from '../../hocs/with-video-player/with-video-player.jsx';
+
+const MovieCardWrapped = withAudioPlayer(MovieCard);
 
 class MoviesList extends React.PureComponent {
   constructor(props) {
@@ -18,7 +21,7 @@ class MoviesList extends React.PureComponent {
 
     return (
       <div className="catalog__movies-list">
-        {movies.map((movieData) => <MovieCard key={movieData.name} movie={movieData} onClick={onTitleClickHandler} onHover={this.movieCardHoverHandler} />)}
+        {movies.map((movieData) => <MovieCardWrapped key={movieData.name} movie={movieData} onClick={onTitleClickHandler} onHover={this.movieCardHoverHandler} />)}
       </div>
     );
   }
@@ -29,6 +32,7 @@ MoviesList.propTypes = {
     name: PropTypes.string.isRequired,
     backgroundImg: PropTypes.string.isRequired,
     posterImg: PropTypes.string.isRequired,
+    previewVid: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
