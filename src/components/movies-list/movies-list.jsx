@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MovieCard from '../movie-card/movie-card.jsx';
-import withAudioPlayer from '../../hocs/with-video-player/with-video-player.jsx';
+import withVideoPlayer from '../../hocs/with-video-player/with-video-player.jsx';
 
-const MovieCardWrapped = withAudioPlayer(MovieCard);
+const MovieCardWrapped = withVideoPlayer(MovieCard);
 
 class MoviesList extends React.PureComponent {
   constructor(props) {
@@ -39,7 +39,7 @@ MoviesList.propTypes = {
     score: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
-    cast: PropTypes.string.isRequired,
+    cast: PropTypes.arrayOf(PropTypes.string).isRequired,
   })).isRequired,
   onTitleClickHandler: PropTypes.func.isRequired,
 };

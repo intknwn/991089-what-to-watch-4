@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MoviePage component should render page with movie details 1`] = `
+<div
+  className="movie-card__reviews movie-card__row"
+>
+  <div
+    className="movie-card__reviews-col"
+  >
+    <div
+      className="review"
+    >
+      <blockquote
+        className="review__quote"
+      >
+        <p
+          className="review__text"
+        >
+          Awesome movie!
+        </p>
+        <footer
+          className="review__details"
+        >
+          <cite
+            className="review__author"
+          >
+            Kate Doughlas
+          </cite>
+          <time
+            className="review__date"
+            dateTime="2019-05-08"
+          >
+            May 8, 2019
+          </time>
+        </footer>
+      </blockquote>
+      <div
+        className="review__rating"
+      >
+        8,9
+      </div>
+    </div>
+    <div
+      className="review"
+    >
+      <blockquote
+        className="review__quote"
+      >
+        <p
+          className="review__text"
+        >
+          Fantastic! Best movie ever!
+        </p>
+        <footer
+          className="review__details"
+        >
+          <cite
+            className="review__author"
+          >
+            Bill Westmoore
+          </cite>
+          <time
+            className="review__date"
+            dateTime="2015-11-18"
+          >
+            November 18, 2015
+          </time>
+        </footer>
+      </blockquote>
+      <div
+        className="review__rating"
+      >
+        8
+      </div>
+    </div>
+    <div
+      className="review"
+    >
+      <blockquote
+        className="review__quote"
+      >
+        <p
+          className="review__text"
+        >
+          Bummer! The worst movie ever!
+        </p>
+        <footer
+          className="review__details"
+        >
+          <cite
+            className="review__author"
+          >
+            Amanda Rockefeller
+          </cite>
+          <time
+            className="review__date"
+            dateTime="2015-11-18"
+          >
+            November 18, 2015
+          </time>
+        </footer>
+      </blockquote>
+      <div
+        className="review__rating"
+      >
+        3
+      </div>
+    </div>
+  </div>
+</div>
+`;

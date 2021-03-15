@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import MoviePage from './movie-page.jsx';
-import movies from '../../mocks/movies.js';
+import Tabs from './tabs.jsx';
+import {Tab} from '../../const.js';
 
 const movie = {
   name: `Die Hard`,
@@ -16,17 +16,42 @@ const movie = {
   description: `An NYPD officer tries to save his wife and several others taken hostage by German terrorists during a Christmas party at the Nakatomi Plaza in Los Angeles.`,
   director: `John McTiernan`,
   cast: [`Bruce Willis`, `Alan Rickman`, `Bonnie Bedelia`],
-  runtime: 112,
+  runtime: 132,
 };
 
-it(`MoviePage component should render page with movie details`, () => {
+it(`Tabs component should render overview tab correctly`, () => {
   const tree = renderer.create(
-      <MoviePage
+      <Tabs
+        activeTab={Tab.OVERVIEW}
+        onTabClick={() => {}}
         movie={movie}
-        movies={movies}
-        onTitleClickHandler={() => {}}
       />
   ).toJSON();
 
   expect(tree).toMatchSnapshot();
 });
+
+it(`Tabs component should render details tab correctly`, () => {
+  const tree = renderer.create(
+      <Tabs
+        activeTab={Tab.DETAILS}
+        onTabClick={() => {}}
+        movie={movie}
+      />
+  ).toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
+it(`Tabs component should render reviews tab correctly`, () => {
+  const tree = renderer.create(
+      <Tabs
+        activeTab={Tab.REVIEWS}
+        onTabClick={() => {}}
+        movie={movie}
+      />
+  ).toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+

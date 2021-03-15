@@ -14,7 +14,7 @@ const movie = {
   score: 240,
   description: `In an effort to thwart Grindelwald's plans of raising pure-blood wizards to rule over all non-magical beings, Albus Dumbledore enlists his former student Newt Scamander, who agrees to help, unaware of the dangers that lie ahead. Lines are drawn as love and loyalty are tested, even among the truest friends and family, in an increasingly divided wizarding world.`,
   director: `David Yates`,
-  cast: `Eddie Redmayne, Katherine Waterston, Dan Fogler`,
+  cast: [`Eddie Redmayne`, `Katherine Waterston`, `Dan Fogler`],
 };
 
 it(`MovieCard component should render movie card`, () => {

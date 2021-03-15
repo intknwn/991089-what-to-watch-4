@@ -129,7 +129,7 @@ Main.propTypes = {
     score: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
-    cast: PropTypes.string.isRequired,
+    cast: PropTypes.arrayOf(PropTypes.string).isRequired,
   })).isRequired,
   onTitleClickHandler: PropTypes.func.isRequired,
 };

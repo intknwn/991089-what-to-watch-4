@@ -22,7 +22,7 @@ class App extends React.PureComponent {
     return (
       <React.Fragment>
         {selectedMovie ?
-          <MoviePage movie={selectedMovie} /> :
+          <MoviePage movie={selectedMovie} movies={movies} onTitleClickHandler={this.onTitleClickHandler}/> :
           <BrowserRouter>
             <Switch>
               <Route exact path="/">
@@ -33,7 +33,7 @@ class App extends React.PureComponent {
                 />
               </Route>
               <Route exact path="/movie-page">
-                <MoviePage movie={movies[0]}/>
+                <MoviePage movie={movies[0]} onTitleClickHandler={() => {}}/>
               </Route>
             </Switch>
           </BrowserRouter>
@@ -60,7 +60,7 @@ App.propTypes = {
     score: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
-    cast: PropTypes.string.isRequired,
+    cast: PropTypes.arrayOf(PropTypes.string).isRequired,
   })).isRequired,
   onTitleClickHandler: PropTypes.func.isRequired,
 };

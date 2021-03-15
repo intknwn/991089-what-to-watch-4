@@ -20,7 +20,7 @@ const movies = [{
   score: 240,
   description: `In an effort to thwart Grindelwald's plans of raising pure-blood wizards to rule over all non-magical beings, Albus Dumbledore enlists his former student Newt Scamander, who agrees to help, unaware of the dangers that lie ahead. Lines are drawn as love and loyalty are tested, even among the truest friends and family, in an increasingly divided wizarding world.`,
   director: `David Yates`,
-  cast: `Eddie Redmayne, Katherine Waterston, Dan Fogler`,
+  cast: [`Eddie Redmayne`, `Katherine Waterston`, `Dan Fogler`],
 },
 {
   name: `Bohemian Rhapsody`,
@@ -34,7 +34,7 @@ const movies = [{
   score: 450,
   description: `The story of the legendary British rock band Queen and lead singer Freddie Mercury, leading up to their famous performance at Live Aid (1985).`,
   director: `Bryan Singer`,
-  cast: `Rami Malek, Lucy Boynton, Gwilym Lee`,
+  cast: [`Rami Malek`, `Lucy Boynton`, `Gwilym Lee`],
 },
 {
   name: `We need to talk about Kevin`,
@@ -48,7 +48,7 @@ const movies = [{
   score: 138,
   description: `Kevin's mother struggles to love her strange child, despite the increasingly dangerous things he says and does as he grows up. But Kevin is just getting started, and his final act will be beyond anything anyone imagined.`,
   director: `Lynne Ramsay`,
-  cast: `Tilda Swinton, John C. Reilly, Ezra Miller`,
+  cast: [`Tilda Swinton`, `John C. Reilly`, `Ezra Miller`],
 },
 {
   name: `What We Do in the Shadows`,
@@ -62,7 +62,7 @@ const movies = [{
   score: 36894,
   description: `A look into the daily (or rather, nightly) lives of three vampires, who've lived together for over 100 years, on Staten Island.`,
   director: `Jemaine Clement`,
-  cast: ` Kayvan Novak, Matt Berry, Natasia Demetriou`,
+  cast: [`Kayvan Novak`, `Matt Berry`, `Natasia Demetriou`],
 }];
 
 it(`Main component should render main screen`, () => {

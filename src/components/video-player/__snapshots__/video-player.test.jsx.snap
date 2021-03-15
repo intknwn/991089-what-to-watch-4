@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VideoPlayer component should renders correctly 1`] = `
+<video
+  autoPlay={true}
+  height={175}
+  loop={true}
+  muted={true}
+  poster="https://via.placeholder.com/273x410"
+  src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+  width={280}
+/>
+`;

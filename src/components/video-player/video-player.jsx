@@ -18,8 +18,6 @@ VideoPlayer.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   poster: PropTypes.string.isRequired,
-  isAutoPlay: PropTypes.bool.isRequired,
-  isMuted: PropTypes.bool.isRequired,
 };
 
 export default VideoPlayer;

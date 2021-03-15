@@ -1,7 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import MoviePage from './movie-page.jsx';
-import movies from '../../mocks/movies.js';
+import MovieOverview from './movie-overview.jsx';
 
 const movie = {
   name: `Die Hard`,
@@ -16,15 +15,13 @@ const movie = {
   description: `An NYPD officer tries to save his wife and several others taken hostage by German terrorists during a Christmas party at the Nakatomi Plaza in Los Angeles.`,
   director: `John McTiernan`,
   cast: [`Bruce Willis`, `Alan Rickman`, `Bonnie Bedelia`],
-  runtime: 112,
+  runtime: 132,
 };
 
-it(`MoviePage component should render page with movie details`, () => {
+it(`MovieOverview component should renders correctly`, () => {
   const tree = renderer.create(
-      <MoviePage
+      <MovieOverview
         movie={movie}
-        movies={movies}
-        onTitleClickHandler={() => {}}
       />
   ).toJSON();
 
