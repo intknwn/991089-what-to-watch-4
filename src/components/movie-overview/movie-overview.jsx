@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {convertRatingToScore} from '../../utils/rating.js';
+import {movieType} from '../../types/types.js';
 
 const MovieOverview = ({movie}) => {
   const {rating, score, description, director, cast} = movie;
@@ -24,20 +24,7 @@ const MovieOverview = ({movie}) => {
 };
 
 MovieOverview.propTypes = {
-  movie: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    backgroundImg: PropTypes.string.isRequired,
-    posterImg: PropTypes.string.isRequired,
-    previewVid: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    score: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    cast: PropTypes.arrayOf(PropTypes.string).isRequired,
-    runtime: PropTypes.number.isRequired,
-  })
+  movie: movieType.isRequired,
 };
 
 export default MovieOverview;

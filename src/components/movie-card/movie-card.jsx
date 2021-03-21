@@ -1,6 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {bool, func} from 'prop-types';
 import VideoPlayer from '../video-player/video-player.jsx';
+import {movieType} from '../../types/types.js';
 
 const MovieCard = ({movie, onMouseEnter, onMouseLeave, onClick, isPlaying}) => {
   const {name, previewImg} = movie;
@@ -36,15 +37,11 @@ const MovieCard = ({movie, onMouseEnter, onMouseLeave, onClick, isPlaying}) => {
 };
 
 MovieCard.propTypes = {
-  movie: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    previewImg: PropTypes.string.isRequired,
-    previewVid: PropTypes.string.isRequired,
-  }).isRequired,
-  onClick: PropTypes.func.isRequired,
-  isPlaying: PropTypes.bool.isRequired,
-  onMouseEnter: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired,
+  movie: movieType.isRequired,
+  onClick: func.isRequired,
+  isPlaying: bool.isRequired,
+  onMouseEnter: func.isRequired,
+  onMouseLeave: func.isRequired,
 };
 
 export default MovieCard;

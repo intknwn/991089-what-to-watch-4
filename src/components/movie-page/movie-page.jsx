@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {func, arrayOf} from 'prop-types';
 import Tabs from '../tabs/tabs.jsx';
 import MoviesList from '../movies-list/movies-list.jsx';
 import withActiveTab from '../../hocs/with-active-tab/with-active-tab.jsx';
-
-const MAX_MORE_LIKE_THIS_MOVIES = 4;
+import {MAX_MORE_LIKE_THIS_MOVIES_COUNTER} from '../../const.js';
+import {movieType} from '../../types/types.js';
 
 const TabsWrapped = withActiveTab(Tabs);
 
@@ -17,7 +17,7 @@ const MoviePage = ({movie, movies, onTitleClickHandler}) => {
     year,
   } = movie;
 
-  const moviesLikeThis = movies.filter((mov) => mov.genre === genre).slice(0, MAX_MORE_LIKE_THIS_MOVIES);
+  const moviesLikeThis = movies.filter((mov) => mov.genre === genre).slice(0, MAX_MORE_LIKE_THIS_MOVIES_COUNTER);
 
   return (
     <div>
@@ -99,33 +99,9 @@ const MoviePage = ({movie, movies, onTitleClickHandler}) => {
 };
 
 MoviePage.propTypes = {
-  movie: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    backgroundImg: PropTypes.string.isRequired,
-    posterImg: PropTypes.string.isRequired,
-    previewVid: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    score: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    cast: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }),
-  movies: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    backgroundImg: PropTypes.string.isRequired,
-    posterImg: PropTypes.string.isRequired,
-    previewVid: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    score: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    cast: PropTypes.arrayOf(PropTypes.string).isRequired,
-  })),
-  onTitleClickHandler: PropTypes.func.isRequired,
+  movie: movieType.isRequired,
+  movies: arrayOf(movieType).isRequired,
+  onTitleClickHandler: func.isRequired,
 };
 
 export default MoviePage;

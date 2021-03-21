@@ -1,10 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {string, func} from 'prop-types';
 import MovieOverview from '../movie-overview/movie-overview.jsx';
 import MovieDetails from '../movie-details/movie-details.jsx';
 import MovieReviews from '../movie-reviews/movie-reviews.jsx';
 import reviews from '../../mocks/reviews.js';
 import {Tab} from '../../const.js';
+import {movieType} from '../../types/types.js';
 
 const Tabs = ({activeTab, onTabClick, movie}) => {
   const getInfoByTab = (tabName, movieData) => {
@@ -43,22 +44,9 @@ const Tabs = ({activeTab, onTabClick, movie}) => {
 };
 
 Tabs.propTypes = {
-  activeTab: PropTypes.string.isRequired,
-  onTabClick: PropTypes.func.isRequired,
-  movie: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    backgroundImg: PropTypes.string.isRequired,
-    posterImg: PropTypes.string.isRequired,
-    previewVid: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    score: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    cast: PropTypes.arrayOf(PropTypes.string).isRequired,
-    runtime: PropTypes.number.isRequired,
-  })
+  activeTab: string.isRequired,
+  onTabClick: func.isRequired,
+  movie: movieType.isRequired,
 };
 
 export default Tabs;

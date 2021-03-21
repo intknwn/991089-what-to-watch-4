@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {string, number} from 'prop-types';
 
 const VideoPlayer = ({src, width, height, poster}) =>
   <video
@@ -14,10 +14,10 @@ const VideoPlayer = ({src, width, height, poster}) =>
 
 
 VideoPlayer.propTypes = {
-  src: PropTypes.string.isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  poster: PropTypes.string.isRequired,
+  src: string.isRequired,
+  width: number.isRequired,
+  height: number.isRequired,
+  poster: string.isRequired,
 };
 
 export default VideoPlayer;

@@ -1,7 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {func, arrayOf} from 'prop-types';
 import MovieCard from '../movie-card/movie-card.jsx';
 import withVideoPlayer from '../../hocs/with-video-player/with-video-player.jsx';
+import {movieType} from '../../types/types.js';
 
 const MovieCardWrapped = withVideoPlayer(MovieCard);
 
@@ -28,20 +29,8 @@ class MoviesList extends React.PureComponent {
 }
 
 MoviesList.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    backgroundImg: PropTypes.string.isRequired,
-    posterImg: PropTypes.string.isRequired,
-    previewVid: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    score: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    cast: PropTypes.arrayOf(PropTypes.string).isRequired,
-  })).isRequired,
-  onTitleClickHandler: PropTypes.func.isRequired,
+  movies: arrayOf(movieType).isRequired,
+  onTitleClickHandler: func.isRequired,
 };
 
 export default MoviesList;

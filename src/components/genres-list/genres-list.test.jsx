@@ -1,13 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {App} from './app.jsx';
+import GenresList from './genres-list.jsx';
 import {Genre} from '../../const.js';
-
-const movie = {
-  name: `Die Hard`,
-  year: 1988,
-  genre: `Action`,
-};
 
 const movies = [{
   name: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -66,18 +60,14 @@ const movies = [{
   cast: [`Kayvan Novak`, `Matt Berry`, `Natasia Demetriou`],
 }];
 
-it(`App component should render application`, () => {
-  const tree = renderer
-    .create(
-        <App
-          movie={movie}
-          movies={movies}
-          selectedGenre={Genre.ALL_GENRES}
-          onGenreClick={() => {}}
-          selectedByGenreMovies={movies}
-        />
-    )
-    .toJSON();
+it(`GenresList component should renders correctly`, () => {
+  const tree = renderer.create(
+      <GenresList
+        movies={movies}
+        selectedGenre={Genre.ALL_GENRES}
+        onGenreClick={() => {}}
+      />
+  ).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

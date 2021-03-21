@@ -1,9 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {string, func, arrayOf} from 'prop-types';
 import MoviesList from '../movies-list/movies-list.jsx';
+import GenresList from '../genres-list/genres-list.jsx';
+import {promoMovieType, movieType} from '../../types/types.js';
 
 const Main = (props) => {
-  const {movie, movies, onTitleClickHandler} = props;
+  const {movie, movies, onTitleClickHandler, selectedGenre, selectedByGenreMovies, onGenreClick} = props;
 
   return (
     <div>
@@ -58,39 +60,8 @@ const Main = (props) => {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Kids &amp; Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
-          <MoviesList movies={movies} onTitleClickHandler={onTitleClickHandler} />
+          <GenresList movies={movies} selectedGenre={selectedGenre} onGenreClick={onGenreClick}/>
+          <MoviesList movies={selectedByGenreMovies} onTitleClickHandler={onTitleClickHandler} />
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
@@ -113,25 +84,12 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  movie: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    genre: PropTypes.string.isRequired,
-  }).isRequired,
-  movies: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    backgroundImg: PropTypes.string.isRequired,
-    posterImg: PropTypes.string.isRequired,
-    previewVid: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    score: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    cast: PropTypes.arrayOf(PropTypes.string).isRequired,
-  })).isRequired,
-  onTitleClickHandler: PropTypes.func.isRequired,
+  movie: promoMovieType.isRequired,
+  movies: arrayOf(movieType).isRequired,
+  onTitleClickHandler: func.isRequired,
+  selectedGenre: string.isRequired,
+  selectedByGenreMovies: arrayOf(movieType).isRequired,
+  onGenreClick: func.isRequired,
 };
 
 export default Main;

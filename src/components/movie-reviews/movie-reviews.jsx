@@ -1,6 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {arrayOf} from 'prop-types';
 import moment from 'moment';
+import {reviewType} from '../../types/types.js';
 
 const MovieReviews = ({reviews}) => {
   const groupReviews = (movieReviews) => {
@@ -51,16 +52,7 @@ const MovieReviews = ({reviews}) => {
 };
 
 MovieReviews.propTypes = {
-  reviews: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    user: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-    }),
-    rating: PropTypes.number.isRequired,
-    comment: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-  })),
+  reviews: arrayOf(reviewType),
 };
 
 export default MovieReviews;

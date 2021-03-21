@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {formatRuntime} from '../../utils/common.js';
+import {movieType} from '../../types/types.js';
 
 const MovieDetails = ({movie}) => {
   const {director, cast, runtime, genre, year} = movie;
@@ -38,20 +38,7 @@ const MovieDetails = ({movie}) => {
 };
 
 MovieDetails.propTypes = {
-  movie: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    backgroundImg: PropTypes.string.isRequired,
-    posterImg: PropTypes.string.isRequired,
-    previewVid: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    score: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    cast: PropTypes.arrayOf(PropTypes.string).isRequired,
-    runtime: PropTypes.number.isRequired,
-  })
+  movie: movieType.isRequired,
 };
 
 export default MovieDetails;

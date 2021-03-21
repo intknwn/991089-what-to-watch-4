@@ -2,6 +2,7 @@ import React from 'react';
 import Enzyme, {mount} from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import Main from './main.jsx';
+import {Genre} from '../../const.js';
 
 Enzyme.configure({
   adapter: new Adapter()
@@ -78,6 +79,9 @@ it(`Click on list item's title should trigger callback function`, () => {
         movie={movie}
         movies={movies}
         onTitleClickHandler={onTitleClickHandler}
+        selectedGenre={Genre.ALL_GENRES}
+        selectedByGenreMovies={movies}
+        onGenreClick={() => {}}
       />
   );
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Main from './main.jsx';
+import {Genre} from '../../const.js';
 
 const movie = {
   name: `Die Hard`,
@@ -72,6 +73,9 @@ it(`Main component should render main screen`, () => {
             movie={movie}
             movies={movies}
             onTitleClickHandler={() => {}}
+            selectedGenre={Genre.ALL_GENRES}
+            selectedByGenreMovies={movies}
+            onGenreClick={() => {}}
           />
       )
       .toJSON();
