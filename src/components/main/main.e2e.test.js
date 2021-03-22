@@ -81,7 +81,9 @@ it(`Click on list item's title should trigger callback function`, () => {
         onTitleClickHandler={onTitleClickHandler}
         selectedGenre={Genre.ALL_GENRES}
         selectedByGenreMovies={movies}
+        isShowMore={true}
         onGenreClick={() => {}}
+        onShowMoreClick={() => {}}
       />
   );
 

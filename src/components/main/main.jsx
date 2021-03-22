@@ -1,11 +1,21 @@
 import React from 'react';
-import {string, func, arrayOf} from 'prop-types';
+import {string, func, arrayOf, bool} from 'prop-types';
 import MoviesList from '../movies-list/movies-list.jsx';
 import GenresList from '../genres-list/genres-list.jsx';
 import {promoMovieType, movieType} from '../../types/types.js';
+import ShowMoreButton from '../show-more-button/show-more-button.jsx';
 
 const Main = (props) => {
-  const {movie, movies, onTitleClickHandler, selectedGenre, selectedByGenreMovies, onGenreClick} = props;
+  const {
+    movie,
+    movies,
+    onTitleClickHandler,
+    selectedGenre,
+    selectedByGenreMovies,
+    isShowMore,
+    onGenreClick,
+    onShowMoreClick
+  } = props;
 
   return (
     <div>
@@ -62,9 +72,7 @@ const Main = (props) => {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenresList movies={movies} selectedGenre={selectedGenre} onGenreClick={onGenreClick}/>
           <MoviesList movies={selectedByGenreMovies} onTitleClickHandler={onTitleClickHandler} />
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {isShowMore && <ShowMoreButton onClick={onShowMoreClick}/>}
         </section>
         <footer className="page-footer">
           <div className="logo">
@@ -89,7 +97,9 @@ Main.propTypes = {
   onTitleClickHandler: func.isRequired,
   selectedGenre: string.isRequired,
   selectedByGenreMovies: arrayOf(movieType).isRequired,
+  isShowMore: bool.isRequired,
   onGenreClick: func.isRequired,
+  onShowMoreClick: func.isRequired,
 };
 
 export default Main;

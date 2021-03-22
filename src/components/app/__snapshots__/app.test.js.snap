@@ -326,6 +326,7 @@ exports[`App component should render application 1`] = `
       >
         <button
           className="catalog__button"
+          onClick={[Function]}
           type="button"
         >
           Show more

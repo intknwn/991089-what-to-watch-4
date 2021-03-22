@@ -73,8 +73,10 @@ it(`App component should render application`, () => {
           movie={movie}
           movies={movies}
           selectedGenre={Genre.ALL_GENRES}
-          onGenreClick={() => {}}
           selectedByGenreMovies={movies}
+          isShowMore={true}
+          onGenreClick={() => {}}
+          onShowMoreClick={() => {}}
         />
     )
     .toJSON();

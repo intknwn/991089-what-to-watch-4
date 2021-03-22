@@ -1,8 +1,9 @@
 import {ActionType} from './action.js';
-import {Genre} from '../const.js';
+import {Genre, MOVIES_PER_PAGE} from '../const.js';
 
 const initialState = {
   movies: [],
+  moviesPerPage: MOVIES_PER_PAGE,
   selectedGenre: Genre.ALL_GENRES,
 };
 
@@ -15,6 +16,14 @@ export const reducer = (state = initialState, action) => {
     case ActionType.SET_MOVIES:
       return Object.assign({}, state, {
         movies: action.payload,
+      });
+    case ActionType.INC_MOVIES_PER_PAGE:
+      return Object.assign({}, state, {
+        moviesPerPage: state.moviesPerPage * 2,
+      });
+    case ActionType.RESET_MOVIES_PER_PAGE:
+      return Object.assign({}, state, {
+        moviesPerPage: MOVIES_PER_PAGE,
       });
   }
 

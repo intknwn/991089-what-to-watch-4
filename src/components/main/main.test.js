@@ -75,7 +75,9 @@ it(`Main component should render main screen`, () => {
             onTitleClickHandler={() => {}}
             selectedGenre={Genre.ALL_GENRES}
             selectedByGenreMovies={movies}
+            isShowMore={true}
             onGenreClick={() => {}}
+            onShowMoreClick={() => {}}
           />
       )
       .toJSON();
