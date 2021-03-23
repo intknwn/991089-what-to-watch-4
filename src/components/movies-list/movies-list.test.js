@@ -63,7 +63,7 @@ it(`MoviesList component should render list of movies`, () => {
   const tree = renderer.create(
       <MoviesList
         movies={movies}
-        onTitleClickHandler={() => {}}
+        onMovieCardClickHandler={() => {}}
       />
   ).toJSON();
 

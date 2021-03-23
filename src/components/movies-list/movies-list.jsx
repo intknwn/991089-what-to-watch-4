@@ -7,18 +7,18 @@ import {movieType} from '../../types/types.js';
 
 const MovieCardWrapped = withVideoPlayer(MovieCard);
 
-export const MoviesList = ({movies, onTitleClickHandler}) => {
+export const MoviesList = ({movies, onMovieCardClickHandler}) => {
 
   return (
     <div className="catalog__movies-list">
-      {movies.map((movieData) => <MovieCardWrapped key={movieData.name} movie={movieData} onClick={onTitleClickHandler} />)}
+      {movies.map((movieData) => <MovieCardWrapped key={movieData.name} movie={movieData} onClick={onMovieCardClickHandler} />)}
     </div>
   );
 };
 
 MoviesList.propTypes = {
   movies: arrayOf(movieType).isRequired,
-  onTitleClickHandler: func.isRequired,
+  onMovieCardClickHandler: func.isRequired,
 };
 
 export default MoviesList;

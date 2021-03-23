@@ -24,7 +24,7 @@ it(`MoviePage component should render page with movie details`, () => {
       <MoviePage
         movie={movie}
         movies={movies}
-        onTitleClickHandler={() => {}}
+        onMovieCardClickHandler={() => {}}
       />
   ).toJSON();
 

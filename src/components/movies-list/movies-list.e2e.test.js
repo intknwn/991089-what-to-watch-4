@@ -1,18 +1,11 @@
 import React from 'react';
 import Enzyme, {mount} from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import Main from './main.jsx';
-import {Genre} from '../../const.js';
+import MoviesList from './movies-list.jsx';
 
 Enzyme.configure({
   adapter: new Adapter()
 });
-
-const movie = {
-  name: `Die Hard`,
-  year: 1988,
-  genre: `Action`,
-};
 
 const movies = [{
   name: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -72,18 +65,12 @@ const movies = [{
 }];
 
 it(`Click on list item's title should trigger callback function`, () => {
-  const onTitleClickHandler = jest.fn();
+  const onMovieCardClickHandler = jest.fn();
 
   const mainScreen = mount(
-      <Main
-        movie={movie}
+      <MoviesList
         movies={movies}
-        onTitleClickHandler={onTitleClickHandler}
-        selectedGenre={Genre.ALL_GENRES}
-        selectedByGenreMovies={movies}
-        isShowMore={true}
-        onGenreClick={() => {}}
-        onShowMoreClick={() => {}}
+        onMovieCardClickHandler={onMovieCardClickHandler}
       />
   );
 
@@ -93,5 +80,5 @@ it(`Click on list item's title should trigger callback function`, () => {
     }
   }));
 
-  expect(onTitleClickHandler.mock.calls.length).toBe(4);
+  expect(onMovieCardClickHandler.mock.calls.length).toBe(4);
 });

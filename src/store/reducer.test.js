@@ -11,6 +11,7 @@ it(`Reducer without arguments should return initial state`, () => {
     movies: [],
     moviesPerPage: MOVIES_PER_PAGE,
     selectedGenre: Genre.ALL_GENRES,
+    selectedMovie: null,
   });
 });
 
@@ -19,6 +20,7 @@ it(`Reducer should change a genre`, () => {
     movies: [],
     moviesPerPage: MOVIES_PER_PAGE,
     selectedGenre: Genre.ALL_GENRES,
+    selectedMovie: null,
   }, {
     type: ActionType.SET_MOVIES_GENRE,
     payload: `Comedy`,
@@ -26,6 +28,7 @@ it(`Reducer should change a genre`, () => {
     movies: [],
     moviesPerPage: MOVIES_PER_PAGE,
     selectedGenre: `Comedy`,
+    selectedMovie: null,
   });
 });
 
@@ -34,6 +37,7 @@ it(`Reducer should set movies`, () => {
     movies: [],
     moviesPerPage: MOVIES_PER_PAGE,
     selectedGenre: Genre.ALL_GENRES,
+    selectedMovie: null,
   }, {
     type: ActionType.SET_MOVIES,
     payload: movies
@@ -41,6 +45,7 @@ it(`Reducer should set movies`, () => {
     movies,
     moviesPerPage: MOVIES_PER_PAGE,
     selectedGenre: Genre.ALL_GENRES,
+    selectedMovie: null,
   });
 });
 
@@ -49,12 +54,14 @@ it(`Reducer should change movies per page counter`, () => {
     movies: [],
     moviesPerPage: MOVIES_PER_PAGE,
     selectedGenre: Genre.ALL_GENRES,
+    selectedMovie: null,
   }, {
     type: ActionType.INC_MOVIES_PER_PAGE,
   })).toEqual({
     movies: [],
     moviesPerPage: MOVIES_PER_PAGE * 2,
     selectedGenre: Genre.ALL_GENRES,
+    selectedMovie: null,
   });
 });
 
@@ -63,12 +70,31 @@ it(`Reducer should reset movies per page counter`, () => {
     movies: [],
     moviesPerPage: MOVIES_PER_PAGE * 2,
     selectedGenre: Genre.ALL_GENRES,
+    selectedMovie: null,
   }, {
     type: ActionType.RESET_MOVIES_PER_PAGE,
   })).toEqual({
     movies: [],
     moviesPerPage: MOVIES_PER_PAGE,
     selectedGenre: Genre.ALL_GENRES,
+    selectedMovie: null,
+  });
+});
+
+it(`Reducer should change selected movie`, () => {
+  expect(reducer({
+    movies: [],
+    moviesPerPage: MOVIES_PER_PAGE,
+    selectedGenre: Genre.ALL_GENRES,
+    selectedMovie: null,
+  }, {
+    type: ActionType.SELECT_MOVIE,
+    payload: movies[0],
+  })).toEqual({
+    movies: [],
+    moviesPerPage: MOVIES_PER_PAGE,
+    selectedGenre: Genre.ALL_GENRES,
+    selectedMovie: movies[0],
   });
 });
 
@@ -96,6 +122,13 @@ describe(`Action creators should work correctly`, () => {
   it(`resetMoviesPerPage action creator returns correct action`, () => {
     expect(ActionCreator.resetMoviesPerPage()).toEqual({
       type: ActionType.RESET_MOVIES_PER_PAGE,
+    });
+  });
+
+  it(`selectMovie action creator returns correct action`, () => {
+    expect(ActionCreator.selectMovie(movies[0])).toEqual({
+      type: ActionType.SELECT_MOVIE,
+      payload: movies[0],
     });
   });
 });

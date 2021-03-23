@@ -271,9 +271,9 @@ exports[`MoviePage component should render page with movie details 1`] = `
             className="small-movie-card__image"
           >
             <img
-              alt="Batman & Robin"
+              alt="Fantastic Beasts: The Crimes of Grindelwald"
               height={175}
-              src="https://via.placeholder.com/280x175"
+              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
               width={280}
             />
           </div>
@@ -284,7 +284,7 @@ exports[`MoviePage component should render page with movie details 1`] = `
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Batman & Robin
+              Fantastic Beasts: The Crimes of Grindelwald
             </a>
           </h3>
         </article>
@@ -298,9 +298,9 @@ exports[`MoviePage component should render page with movie details 1`] = `
             className="small-movie-card__image"
           >
             <img
-              alt="Terminator 2: Judgment Day"
+              alt="Bohemian Rhapsody"
               height={175}
-              src="https://via.placeholder.com/280x175"
+              src="img/bohemian-rhapsody.jpg"
               width={280}
             />
           </div>
@@ -311,7 +311,7 @@ exports[`MoviePage component should render page with movie details 1`] = `
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Terminator 2: Judgment Day
+              Bohemian Rhapsody
             </a>
           </h3>
         </article>
@@ -325,9 +325,9 @@ exports[`MoviePage component should render page with movie details 1`] = `
             className="small-movie-card__image"
           >
             <img
-              alt="Blade Runner 2049"
+              alt="We need to talk about Kevin"
               height={175}
-              src="https://via.placeholder.com/280x175"
+              src="img/we-need-to-talk-about-kevin.jpg"
               width={280}
             />
           </div>
@@ -338,7 +338,34 @@ exports[`MoviePage component should render page with movie details 1`] = `
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Blade Runner 2049
+              We need to talk about Kevin
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+          >
+            <img
+              alt="What We Do in the Shadows"
+              height={175}
+              src="img/what-we-do-in-the-shadows.jpg"
+              width={280}
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+            >
+              What We Do in the Shadows
             </a>
           </h3>
         </article>

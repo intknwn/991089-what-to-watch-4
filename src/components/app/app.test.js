@@ -1,7 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {App} from './app.jsx';
-import {Genre} from '../../const.js';
 
 const movie = {
   name: `Die Hard`,
@@ -71,12 +70,9 @@ it(`App component should render application`, () => {
     .create(
         <App
           movie={movie}
-          movies={movies}
-          selectedGenre={Genre.ALL_GENRES}
+          selectedMovie={movies[0]}
           selectedByGenreMovies={movies}
-          isShowMore={true}
-          onGenreClick={() => {}}
-          onShowMoreClick={() => {}}
+          onMovieCardClickHandler={() => {}}
         />
     )
     .toJSON();

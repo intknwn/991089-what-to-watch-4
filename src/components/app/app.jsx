@@ -1,103 +1,78 @@
 import React from 'react';
-import {string, func, arrayOf, bool} from 'prop-types';
+import {func, arrayOf} from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
 import {Genre} from '../../const.js';
-import {ActionCreator} from '../../store/action.js';
 import {promoMovieType, movieType} from '../../types/types.js';
-class App extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {selectedMovie: null};
-    this.onTitleClickHandler = this._onTitleClickHandler.bind(this);
-  }
+import {ActionCreator} from '../../store/action.js';
+class App extends React.Component {
 
-  _onTitleClickHandler(selectedMovie) {
-    this.setState({selectedMovie});
+  shouldComponentUpdate(nextProps) {
+    if (this.props.selectedMovie !== nextProps.selectedMovie) {
+      return true;
+    }
+
+    return false;
   }
 
   render() {
     const {
       movie,
-      movies,
-      selectedGenre,
+      selectedMovie,
       selectedByGenreMovies,
-      isShowMore,
-      onGenreClick,
-      onShowMoreClick
+      onMovieCardClickHandler,
     } = this.props;
 
-    const {selectedMovie} = this.state;
-
     return (
-      <React.Fragment>
-        {selectedMovie ?
-          <MoviePage
-            movie={selectedMovie}
-            movies={movies}
-            onTitleClickHandler={this.onTitleClickHandler}
-          /> :
-          <BrowserRouter>
-            <Switch>
-              <Route exact path="/">
-                <Main
-                  movie={movie}
-                  movies={movies}
-                  onTitleClickHandler={this.onTitleClickHandler}
-                  selectedGenre={selectedGenre}
-                  selectedByGenreMovies={selectedByGenreMovies}
-                  isShowMore={isShowMore}
-                  onGenreClick={onGenreClick}
-                  onShowMoreClick={onShowMoreClick}
-                />
-              </Route>
-              <Route exact path="/movie-page">
-                <MoviePage
-                  movie={movies[0]}
-                  movies={movies}
-                  onTitleClickHandler={() => {}}
-                />
-              </Route>
-            </Switch>
-          </BrowserRouter>
-        }
-      </React.Fragment>
+      selectedMovie ?
+        <MoviePage
+          movie={selectedMovie}
+          movies={selectedByGenreMovies}
+          onMovieCardClickHandler={onMovieCardClickHandler}
+        /> :
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/">
+              <Main
+                movie={movie}
+              />
+            </Route>
+            <Route exact path="/movie-page">
+              <MoviePage
+                movie={selectedByGenreMovies[0]}
+                movies={selectedByGenreMovies}
+                onMovieCardClickHandler={() => {}}
+              />
+            </Route>
+          </Switch>
+        </BrowserRouter>
     );
   }
 }
 
 App.propTypes = {
   movie: promoMovieType.isRequired,
-  movies: arrayOf(movieType).isRequired,
-  selectedGenre: string.isRequired,
+  selectedMovie: movieType,
   selectedByGenreMovies: arrayOf(movieType).isRequired,
-  isShowMore: bool.isRequired,
-  onGenreClick: func.isRequired,
-  onShowMoreClick: func.isRequired,
+  onMovieCardClickHandler: func.isRequired,
 };
 
-const mapStateToProps = ({selectedGenre, movies, moviesPerPage}) => {
-  const selectedByGenreMovies = selectedGenre === Genre.ALL_GENRES ? movies : movies.filter((mov) => mov.genre === selectedGenre);
-  const selectedByGenreMoviesSliced = selectedByGenreMovies.slice(0, moviesPerPage);
-  const isShowMore = selectedByGenreMovies.length > moviesPerPage;
+const mapStateToProps = ({selectedGenre, selectedMovie, movies, moviesPerPage}) => {
+  const selectedByGenreMovies = selectedGenre === Genre.ALL_GENRES ?
+    movies :
+    movies.filter((mov) => mov.genre === selectedGenre).slice(0, moviesPerPage);
 
   return {
-    movies,
-    selectedGenre,
-    selectedByGenreMovies: selectedByGenreMoviesSliced,
-    isShowMore,
+    selectedMovie,
+    selectedByGenreMovies,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onGenreClick(genre) {
-    dispatch(ActionCreator.setMoviesGenre(genre));
-    dispatch(ActionCreator.resetMoviesPerPage());
-  },
-  onShowMoreClick() {
-    dispatch(ActionCreator.incrementMoviesPerPage());
+  onMovieCardClickHandler(movie) {
+    dispatch(ActionCreator.selectMovie(movie));
   }
 });
 

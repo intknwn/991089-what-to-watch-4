@@ -3,6 +3,7 @@ export const ActionType = {
   SET_MOVIES: `SET_MOVIES`,
   INC_MOVIES_PER_PAGE: `INC_MOVIES_PER_PAGE`,
   RESET_MOVIES_PER_PAGE: `RESET_MOVIES_PER_PAGE`,
+  SELECT_MOVIE: `SELECT_MOVIE`,
 };
 
 export const ActionCreator = {
@@ -19,5 +20,9 @@ export const ActionCreator = {
   }),
   resetMoviesPerPage: () => ({
     type: ActionType.RESET_MOVIES_PER_PAGE,
+  }),
+  selectMovie: (movie) => ({
+    type: ActionType.SELECT_MOVIE,
+    payload: movie,
   }),
 };

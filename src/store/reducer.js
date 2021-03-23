@@ -5,6 +5,7 @@ const initialState = {
   movies: [],
   moviesPerPage: MOVIES_PER_PAGE,
   selectedGenre: Genre.ALL_GENRES,
+  selectedMovie: null,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -24,6 +25,10 @@ export const reducer = (state = initialState, action) => {
     case ActionType.RESET_MOVIES_PER_PAGE:
       return Object.assign({}, state, {
         moviesPerPage: MOVIES_PER_PAGE,
+      });
+    case ActionType.SELECT_MOVIE:
+      return Object.assign({}, state, {
+        selectedMovie: action.payload,
       });
   }
 
