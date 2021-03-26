@@ -8,7 +8,7 @@ import {movieType} from '../../types/types.js';
 
 const TabsWrapped = withActiveTab(Tabs);
 
-const MoviePage = ({movie, movies, onMovieCardClickHandler}) => {
+const MoviePage = ({movie, movies, onMovieCardClickHandler, onPlayClick}) => {
   const {
     name,
     backgroundImg,
@@ -48,7 +48,7 @@ const MoviePage = ({movie, movies, onMovieCardClickHandler}) => {
                 <span className="movie-card__year">{year}</span>
               </p>
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button" onClick={onPlayClick}>
                   <svg viewBox="0 0 19 19" width={19} height={19}>
                     <use xlinkHref="#play-s" />
                   </svg>
@@ -101,6 +101,7 @@ MoviePage.propTypes = {
   movie: movieType.isRequired,
   movies: arrayOf(movieType).isRequired,
   onMovieCardClickHandler: func.isRequired,
+  onPlayClick: func.isRequired,
 };
 
 export default MoviePage;

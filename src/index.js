@@ -5,13 +5,7 @@ import {Provider} from 'react-redux';
 import {reducer} from './store/reducer.js';
 import {ActionCreator} from './store/action.js';
 import App from './components/app/app.jsx';
-import movies from './mocks/movies.js';
-
-const movie = {
-  name: `The Grand Budapest Hotel`,
-  year: 2014,
-  genre: `Drama`,
-};
+import movies, {promoMovie} from './mocks/movies.js';
 
 const store = createStore(
     reducer,
@@ -19,12 +13,11 @@ const store = createStore(
 );
 
 store.dispatch(ActionCreator.setMovies(movies));
+store.dispatch(ActionCreator.setPromoMovie(promoMovie));
 
 ReactDOM.render(
     <Provider store={store}>
-      <App
-        movie={movie}
-      />
+      <App />
     </Provider>,
     document.querySelector(`#root`)
 );

@@ -1,10 +1,4 @@
-import {string, number, shape, arrayOf} from 'prop-types';
-
-export const promoMovieType = shape({
-  name: string.isRequired,
-  year: number.isRequired,
-  genre: string.isRequired,
-});
+import {string, number, bool, shape, arrayOf} from 'prop-types';
 
 export const movieType = shape({
   name: string.isRequired,
@@ -29,5 +23,11 @@ export const reviewType = shape({
   rating: number.isRequired,
   comment: string.isRequired,
   date: string.isRequired,
+});
+
+export const videoType = shape({
+  autoPlay: bool,
+  muted: bool,
+  loop: bool,
 });
 

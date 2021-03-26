@@ -1,3 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`withVideoPlayer component should render correctly 1`] = `<div />`;
+exports[`withVideoPlayer component should render correctly 1`] = `
+<div>
+  <video
+    className="player__video"
+    onPlayClick={[Function]}
+    poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+    src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+  />
+</div>
+`;

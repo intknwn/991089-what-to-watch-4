@@ -8,17 +8,29 @@ import movies from '../../mocks/movies.js';
 
 const mockStore = configureStore([]);
 
+const promoMovie = {
+  name: `Die Hard`,
+  previewImg: `img/die-hard.jpg`,
+  backgroundImg: `https://via.placeholder.com/1300x552`,
+  posterImg: `https://via.placeholder.com/273x410`,
+  previewVid: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+  genre: `Action`,
+  year: 1988,
+  rating: 8.2,
+  score: 796619,
+  description: `An NYPD officer tries to save his wife and several others taken hostage by German terrorists during a Christmas party at the Nakatomi Plaza in Los Angeles.`,
+  director: `John McTiernan`,
+  cast: [`Bruce Willis`, `Alan Rickman`, `Bonnie Bedelia`],
+  runtime: 112,
+};
+
 const initialState = {
+  promoMovie,
   movies,
   moviesPerPage: MOVIES_PER_PAGE,
   selectedGenre: Genre.ALL_GENRES,
   selectedMovie: null,
-};
-
-const movie = {
-  name: `Die Hard`,
-  year: 1988,
-  genre: `Action`,
+  isPlaying: false,
 };
 
 it(`Main component should render main screen`, () => {
@@ -28,7 +40,8 @@ it(`Main component should render main screen`, () => {
       .create(
           <Provider store={store}>
             <Main
-              movie={movie}
+              promoMovie={promoMovie}
+              onPlayClick={() => {}}
             />
           </Provider>
       )

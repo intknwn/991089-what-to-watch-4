@@ -55,7 +55,7 @@ exports[`MovieDetails component should renders correctly 1`] = `
       <span
         className="movie-card__details-value"
       >
-        Invalid date
+        2H 12M
       </span>
     </p>
     <p

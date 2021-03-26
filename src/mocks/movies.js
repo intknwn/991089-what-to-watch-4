@@ -150,3 +150,19 @@ export default [
     runtime: 164,
   },
 ];
+
+export const promoMovie = {
+  name: `The Grand Budapest Hotel`,
+  previewImg: `https://via.placeholder.com/280x175`,
+  backgroundImg: `img/bg-the-grand-budapest-hotel.jpg`,
+  posterImg: `img/the-grand-budapest-hotel-poster.jpg`,
+  previewVid: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+  genre: `Drama`,
+  year: 2014,
+  rating: 8.1,
+  score: 717156,
+  description: `A writer encounters the owner of an aging high-class hotel, who tells him of his early years serving as a lobby boy in the hotel's glorious years under an exceptional concierge.`,
+  director: `Wes Anderson`,
+  cast: [`Ralph Fiennes`, `F. Murray Abraham`, `Mathieu Amalric`],
+  runtime: 99,
+};

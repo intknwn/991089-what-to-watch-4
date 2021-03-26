@@ -22,6 +22,8 @@ const movie = {
   cast: [`Eddie Redmayne`, `Katherine Waterston`, `Dan Fogler`],
 };
 
+const MockComponent = () => <video />;
+
 it(`Hover on movie card should trigger callback with active movie as an argument`, () => {
   const movieCardHoverHandler = jest.fn();
 
@@ -32,7 +34,9 @@ it(`Hover on movie card should trigger callback with active movie as an argument
         isPlaying={false}
         onMouseEnter={movieCardHoverHandler}
         onMouseLeave={() => {}}
-      />
+      >
+        <MockComponent />
+      </MovieCard>
   );
 
   const card = movieCard.find(`.small-movie-card`);
@@ -51,7 +55,9 @@ it(`Click on movie card should trigger callback with active movie as an argument
         isPlaying={false}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
-      />
+      >
+        <MockComponent />
+      </MovieCard>
   );
 
   const card = movieCard.find(`.small-movie-card`);

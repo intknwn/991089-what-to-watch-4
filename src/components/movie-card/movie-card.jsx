@@ -1,9 +1,8 @@
 import React from 'react';
-import {bool, func} from 'prop-types';
-import VideoPlayer from '../video-player/video-player.jsx';
+import {bool, func, node} from 'prop-types';
 import {movieType} from '../../types/types.js';
 
-const MovieCard = ({movie, onMouseEnter, onMouseLeave, onClick, isPlaying}) => {
+const MovieCard = ({movie, onMouseEnter, onMouseLeave, onClick, isPlaying, children}) => {
   const {name, previewImg} = movie;
 
   const clickHandler = (evt) => {
@@ -20,12 +19,7 @@ const MovieCard = ({movie, onMouseEnter, onMouseLeave, onClick, isPlaying}) => {
     >
       <div className="small-movie-card__image">
         {isPlaying ?
-          <VideoPlayer
-            src={movie.previewVid}
-            width={280}
-            height={175}
-            poster={movie.previewImg}
-          /> :
+          children :
           <img src={previewImg} alt={name} width={280} height={175} />
         }
       </div>
@@ -42,6 +36,7 @@ MovieCard.propTypes = {
   isPlaying: bool.isRequired,
   onMouseEnter: func.isRequired,
   onMouseLeave: func.isRequired,
+  children: node.isRequired,
 };
 
 export default MovieCard;

@@ -1,14 +1,16 @@
 import React from 'react';
+import {func} from 'prop-types';
 import Catalog from '../catalog/catalog.jsx';
-import {promoMovieType} from '../../types/types.js';
+import {movieType} from '../../types/types.js';
 
+const Main = ({promoMovie, onPlayClick}) => {
+  const {name, genre, year} = promoMovie;
 
-const Main = ({movie}) => {
   return (
     <div>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={movie.name} />
+          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={name} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header movie-card__head">
@@ -28,16 +30,16 @@ const Main = ({movie}) => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt={`${movie.name} poster`} width={218} height={327} />
+              <img src="img/the-grand-budapest-hotel-poster.jpg" alt={`${name} poster`} width={218} height={327} />
             </div>
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{movie.name}</h2>
+              <h2 className="movie-card__title">{name}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{movie.genre}</span>
-                <span className="movie-card__year">{movie.year}</span>
+                <span className="movie-card__genre">{genre}</span>
+                <span className="movie-card__year">{year}</span>
               </p>
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button" onClick={onPlayClick}>
                   <svg viewBox="0 0 19 19" width={19} height={19}>
                     <use xlinkHref="#play-s" />
                   </svg>
@@ -74,7 +76,8 @@ const Main = ({movie}) => {
 };
 
 Main.propTypes = {
-  movie: promoMovieType.isRequired,
+  promoMovie: movieType.isRequired,
+  onPlayClick: func.isRequired,
 };
 
 export default Main;

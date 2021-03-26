@@ -99,7 +99,7 @@ exports[`Tabs component should render details tab correctly 1`] = `
         <span
           className="movie-card__details-value"
         >
-          Invalid date
+          2H 12M
         </span>
       </p>
       <p
