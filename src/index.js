@@ -1,23 +1,54 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {createStore} from 'redux';
+import thunk from 'redux-thunk';
+import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
-import {reducer} from './store/reducer.js';
-import {ActionCreator} from './store/action.js';
+import {composeWithDevTools} from 'redux-devtools-extension';
+import {toast} from 'react-toastify';
+import reducer from './store/reducer.js';
+import {Operation} from './store/action.js';
 import App from './components/app/app.jsx';
-import movies, {promoMovie} from './mocks/movies.js';
+import {createAPI} from './api/api.js';
+
+import 'react-toastify/dist/ReactToastify.css';
+
+const onError = (err) => toast.error(`Возникла непредвиденная ошибка: ${err}`);
+
+const api = createAPI(onError, () => {});
+
+toast.configure({
+  position: `top-center`,
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: false,
+  pauseOnHover: false,
+  draggable: false,
+  progress: undefined,
+});
 
 const store = createStore(
     reducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    composeWithDevTools(
+        applyMiddleware(thunk.withExtraArgument(api))
+    )
 );
 
-store.dispatch(ActionCreator.setMovies(movies));
-store.dispatch(ActionCreator.setPromoMovie(promoMovie));
+const startApp = () => Promise.all([
+  store.dispatch(Operation.getMovies()),
+  store.dispatch(Operation.getPromoMovie())
+]).then(() => {
+  ReactDOM.render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+      document.querySelector(`#root`)
+  );
+}).catch((err) => {
+  toast.error(`${err.message}. Retrying...`, {
+    onClose: () => startApp(),
+  });
+});
 
-ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.querySelector(`#root`)
-);
+startApp();
+
+

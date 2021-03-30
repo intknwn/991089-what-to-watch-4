@@ -1,5 +1,6 @@
 import React from 'react';
 import {Tab} from '../../const.js';
+import {movieType} from '../../types/types.js';
 
 const withActiveTab = (Component) => {
   class WithActiveTab extends React.PureComponent {
@@ -9,6 +10,12 @@ const withActiveTab = (Component) => {
       this.state = {activeTab: Tab.OVERVIEW};
 
       this.activeTabChangeHandler = this._activeTabChangeHandler.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+      if (prevProps.movie.id !== this.props.movie.id) {
+        this.setState({activeTab: Tab.OVERVIEW});
+      }
     }
 
     _activeTabChangeHandler(tab) {
@@ -24,7 +31,9 @@ const withActiveTab = (Component) => {
     }
   }
 
-  WithActiveTab.propTypes = {};
+  WithActiveTab.propTypes = {
+    movie: movieType,
+  };
 
   return WithActiveTab;
 };

@@ -23,7 +23,7 @@ it(`MoviePage component should render page with movie details`, () => {
   const tree = renderer.create(
       <MoviePage
         movie={movie}
-        movies={movies}
+        similarMovies={movies}
         onMovieCardClickHandler={() => {}}
         onPlayClick={() => {}}
       />

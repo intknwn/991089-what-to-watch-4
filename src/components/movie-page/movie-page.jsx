@@ -3,12 +3,11 @@ import {func, arrayOf} from 'prop-types';
 import Tabs from '../tabs/tabs.jsx';
 import MoviesList from '../movies-list/movies-list.jsx';
 import withActiveTab from '../../hocs/with-active-tab/with-active-tab.jsx';
-import {MAX_MORE_LIKE_THIS_MOVIES_COUNTER} from '../../const.js';
 import {movieType} from '../../types/types.js';
 
 const TabsWrapped = withActiveTab(Tabs);
 
-const MoviePage = ({movie, movies, onMovieCardClickHandler, onPlayClick}) => {
+const MoviePage = ({movie, similarMovies, onMovieCardClickHandler, onPlayClick}) => {
   const {
     name,
     backgroundImg,
@@ -16,7 +15,6 @@ const MoviePage = ({movie, movies, onMovieCardClickHandler, onPlayClick}) => {
     genre,
     year,
   } = movie;
-  const moviesSliced = movies.slice(0, MAX_MORE_LIKE_THIS_MOVIES_COUNTER);
 
   return (
     <div>
@@ -77,7 +75,7 @@ const MoviePage = ({movie, movies, onMovieCardClickHandler, onPlayClick}) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MoviesList movies={moviesSliced} onMovieCardClickHandler={onMovieCardClickHandler}/>
+          <MoviesList movies={similarMovies} onMovieCardClickHandler={onMovieCardClickHandler}/>
         </section>
         <footer className="page-footer">
           <div className="logo">
@@ -99,7 +97,7 @@ const MoviePage = ({movie, movies, onMovieCardClickHandler, onPlayClick}) => {
 
 MoviePage.propTypes = {
   movie: movieType.isRequired,
-  movies: arrayOf(movieType).isRequired,
+  similarMovies: arrayOf(movieType).isRequired,
   onMovieCardClickHandler: func.isRequired,
   onPlayClick: func.isRequired,
 };

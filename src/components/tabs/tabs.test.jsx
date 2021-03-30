@@ -1,9 +1,17 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import {Provider} from 'react-redux';
+import MockAdapter from 'axios-mock-adapter';
 import Tabs from './tabs.jsx';
 import {Tab} from '../../const.js';
+import NameSpace from '../../store/namespace.js';
+import reviews from '../../mocks/reviews.js';
+import {createAPI} from '../../api/api.js';
 
 const movie = {
+  id: 1,
   name: `Die Hard`,
   previewImg: `img/die-hard.jpg`,
   backgroundImg: `https://via.placeholder.com/1300x552`,
@@ -17,6 +25,20 @@ const movie = {
   director: `John McTiernan`,
   cast: [`Bruce Willis`, `Alan Rickman`, `Bonnie Bedelia`],
   runtime: 132,
+};
+
+const api = createAPI(() => {});
+const apiMock = new MockAdapter(api);
+
+apiMock.onGet(`/comments/${movie.id}`).reply(200, reviews);
+
+const mockStore = configureStore([thunk.withExtraArgument(api)]);
+
+
+const initialState = {
+  [NameSpace.DATA]: {
+    reviews,
+  },
 };
 
 it(`Tabs component should render overview tab correctly`, () => {
@@ -44,12 +66,18 @@ it(`Tabs component should render details tab correctly`, () => {
 });
 
 it(`Tabs component should render reviews tab correctly`, () => {
+  const store = mockStore(initialState);
+
+
   const tree = renderer.create(
-      <Tabs
-        activeTab={Tab.REVIEWS}
-        onTabClick={() => {}}
-        movie={movie}
-      />
+      <Provider store={store}>
+        <Tabs
+          activeTab={Tab.REVIEWS}
+          onTabClick={() => {}}
+          movie={movie}
+        />
+      </Provider>
+
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -11,7 +11,7 @@ exports[`Tabs component should render details tab correctly 1`] = `
       className="movie-nav__list"
     >
       <li
-        className="movie-nav__item "
+        className="movie-nav__item"
         onClick={[Function]}
       >
         <a
@@ -33,7 +33,7 @@ exports[`Tabs component should render details tab correctly 1`] = `
         </a>
       </li>
       <li
-        className="movie-nav__item "
+        className="movie-nav__item"
         onClick={[Function]}
       >
         <a
@@ -157,7 +157,7 @@ exports[`Tabs component should render overview tab correctly 1`] = `
         </a>
       </li>
       <li
-        className="movie-nav__item "
+        className="movie-nav__item"
         onClick={[Function]}
       >
         <a
@@ -168,7 +168,7 @@ exports[`Tabs component should render overview tab correctly 1`] = `
         </a>
       </li>
       <li
-        className="movie-nav__item "
+        className="movie-nav__item"
         onClick={[Function]}
       >
         <a
@@ -242,7 +242,7 @@ exports[`Tabs component should render reviews tab correctly 1`] = `
       className="movie-nav__list"
     >
       <li
-        className="movie-nav__item "
+        className="movie-nav__item"
         onClick={[Function]}
       >
         <a
@@ -253,7 +253,7 @@ exports[`Tabs component should render reviews tab correctly 1`] = `
         </a>
       </li>
       <li
-        className="movie-nav__item "
+        className="movie-nav__item"
         onClick={[Function]}
       >
         <a

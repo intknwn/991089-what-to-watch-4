@@ -173,7 +173,7 @@ exports[`App component should render application 1`] = `
                 </a>
               </li>
               <li
-                className="movie-nav__item "
+                className="movie-nav__item"
                 onClick={[Function]}
               >
                 <a
@@ -184,7 +184,7 @@ exports[`App component should render application 1`] = `
                 </a>
               </li>
               <li
-                className="movie-nav__item "
+                className="movie-nav__item"
                 onClick={[Function]}
               >
                 <a

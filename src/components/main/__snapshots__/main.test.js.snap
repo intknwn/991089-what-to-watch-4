@@ -10,7 +10,7 @@ exports[`Main component should render main screen 1`] = `
     >
       <img
         alt="Die Hard"
-        src="img/bg-the-grand-budapest-hotel.jpg"
+        src="https://via.placeholder.com/1300x552"
       />
     </div>
     <h1
@@ -71,7 +71,7 @@ exports[`Main component should render main screen 1`] = `
           <img
             alt="Die Hard poster"
             height={327}
-            src="img/the-grand-budapest-hotel-poster.jpg"
+            src="https://via.placeholder.com/273x410"
             width={218}
           />
         </div>

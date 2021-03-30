@@ -11,7 +11,7 @@ it(`VideoPlayer component should renders correctly`, () => {
         timeLeft={`00:00:30`}
         progress={30}
         isPlaying={true}
-        onClick={() => {}}
+        onPlayClick={() => {}}
         onFullScreenClick={() => {}}
         onExitClick={() => {}}
       >

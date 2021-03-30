@@ -18,7 +18,7 @@ const VideoPlayer = ({
   timeLeft,
   progress,
   isPlaying,
-  onClick,
+  onPlayClick,
   onFullScreenClick,
   onExitClick,
   children
@@ -36,7 +36,7 @@ const VideoPlayer = ({
           <div className="player__time-value">{timeLeft}</div>
         </div>
         <div className="player__controls-row">
-          <button type="button" className="player__play" onClick={onClick}>
+          <button type="button" className="player__play" onClick={onPlayClick}>
             {isPlaying ? pauseSvg : playSvg}
             <span>{isPlaying ? `Pause` : `Play`}</span>
           </button>
@@ -58,7 +58,7 @@ VideoPlayer.propTypes = {
   timeLeft: string.isRequired,
   progress: number.isRequired,
   isPlaying: bool.isRequired,
-  onClick: func.isRequired,
+  onPlayClick: func.isRequired,
   onFullScreenClick: func.isRequired,
   onExitClick: func.isRequired,
   children: node.isRequired,

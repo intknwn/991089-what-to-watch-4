@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import Main from './main.jsx';
 import {Genre, MOVIES_PER_PAGE} from '../../const.js';
 import movies from '../../mocks/movies.js';
+import NameSpace from '../../store/namespace.js';
 
 const mockStore = configureStore([]);
 
@@ -25,12 +26,17 @@ const promoMovie = {
 };
 
 const initialState = {
-  promoMovie,
-  movies,
-  moviesPerPage: MOVIES_PER_PAGE,
-  selectedGenre: Genre.ALL_GENRES,
-  selectedMovie: null,
-  isPlaying: false,
+  [NameSpace.DATA]: {
+    promoMovie,
+    movies,
+    reviews: []
+  },
+  [NameSpace.APP]: {
+    moviesPerPage: MOVIES_PER_PAGE,
+    selectedGenre: Genre.ALL_GENRES,
+    selectedMovie: null,
+    isPlaying: false,
+  }
 };
 
 it(`Main component should render main screen`, () => {

@@ -6,9 +6,11 @@ import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
 import VideoPlayer from '../video-player/video-player.jsx';
 import withVideoPlayer from '../../hocs/with-video-player/with-video-player.jsx';
-import {Genre, MOVIES_LIST_PLAYER_CONFIG} from '../../const.js';
+import {MOVIES_LIST_PLAYER_CONFIG, MOVIE_PAGE_PLAYER_CONFIG} from '../../const.js';
 import {movieType} from '../../types/types.js';
 import {ActionCreator} from '../../store/action.js';
+import {getSimilarMovies, getPromoMovie} from '../../store/data/data-selectors.js';
+import {getSelectedMovie, getPlaybackStatus} from '../../store/app/app-selectors.js';
 
 const VideoPlayerWrapped = withVideoPlayer(VideoPlayer);
 class App extends React.Component {
@@ -30,22 +32,27 @@ class App extends React.Component {
       selectedMovie,
       promoMovie,
       isPlaying,
-      selectedByGenreMovies,
+      similarMovies,
       selectMovie,
       playMovie
     } = this.props;
 
+    const onMovieCardClickHandler = (movie) => {
+      selectMovie(movie);
+      window.scrollTo(0, 0);
+    };
+
     const Component = selectedMovie ?
       <MoviePage
         movie={selectedMovie}
-        movies={selectedByGenreMovies}
-        onMovieCardClickHandler={selectMovie}
+        similarMovies={similarMovies}
+        onMovieCardClickHandler={onMovieCardClickHandler}
         onPlayClick={playMovie}
       /> :
       <Main
         promoMovie={promoMovie}
         onPlayClick={playMovie}
-        onMovieCardClickHandler={selectMovie}
+        onMovieCardClickHandler={onMovieCardClickHandler}
       />;
 
     return (
@@ -55,7 +62,7 @@ class App extends React.Component {
             {isPlaying ?
               <VideoPlayerWrapped
                 movie={selectedMovie || promoMovie}
-                playerConfig={Object.assign({}, MOVIES_LIST_PLAYER_CONFIG, {loop: false})}
+                playerConfig={MOVIE_PAGE_PLAYER_CONFIG}
                 onExitClick={playMovie}
               /> :
               Component
@@ -64,14 +71,14 @@ class App extends React.Component {
           <Route exact path="/movie-page">
             <MoviePage
               movie={selectedMovie}
-              movies={selectedByGenreMovies}
+              similarMovies={similarMovies}
               onMovieCardClickHandler={() => {}}
               onPlayClick={playMovie}
             />
           </Route>
           <Route exact path="/video-player">
             <VideoPlayerWrapped
-              movie={selectedByGenreMovies[0]}
+              movie={similarMovies[0]}
               playerConfig={MOVIES_LIST_PLAYER_CONFIG}
             />
           </Route>
@@ -85,23 +92,17 @@ App.propTypes = {
   selectedMovie: movieType,
   promoMovie: movieType,
   isPlaying: bool.isRequired,
-  selectedByGenreMovies: arrayOf(movieType).isRequired,
+  similarMovies: arrayOf(movieType).isRequired,
   selectMovie: func.isRequired,
   playMovie: func.isRequired,
 };
 
-const mapStateToProps = ({selectedGenre, selectedMovie, isPlaying, movies, promoMovie, moviesPerPage}) => {
-  const selectedByGenreMovies = selectedGenre === Genre.ALL_GENRES ?
-    movies :
-    movies.filter((mov) => mov.genre === selectedGenre).slice(0, moviesPerPage);
-
-  return {
-    selectedMovie,
-    promoMovie,
-    selectedByGenreMovies,
-    isPlaying
-  };
-};
+const mapStateToProps = (state) => ({
+  selectedMovie: getSelectedMovie(state),
+  promoMovie: getPromoMovie(state),
+  similarMovies: getSimilarMovies(state),
+  isPlaying: getPlaybackStatus(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   selectMovie(movie) {

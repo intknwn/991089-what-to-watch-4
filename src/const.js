@@ -8,6 +8,12 @@ export const MOVIES_LIST_PLAYER_CONFIG = {
   loop: true,
 };
 
+export const MOVIE_PAGE_PLAYER_CONFIG = {
+  autoPlay: true,
+  muted: false,
+  loop: false,
+};
+
 export const Tab = {
   OVERVIEW: `Overview`,
   DETAILS: `Details`,

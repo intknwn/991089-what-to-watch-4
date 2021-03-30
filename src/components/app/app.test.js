@@ -81,7 +81,7 @@ it(`App component should render application`, () => {
         <App
           promoMovie={promoMovie}
           selectedMovie={movies[0]}
-          selectedByGenreMovies={movies}
+          similarMovies={movies}
           onMovieCardClickHandler={() => {}}
           isPlaying={false}
           selectMovie={() => {}}

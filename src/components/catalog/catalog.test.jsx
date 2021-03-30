@@ -14,7 +14,7 @@ it(`Catalog component should render movies catalog`, () => {
             onGenreClick={() => {}}
             selectedByGenreMovies={movies}
             isShowMore={true}
-            onMovieCardClickHandler={() => {}}
+            onMovieCardClick={() => {}}
             onShowMoreClick={() => {}}
           />
       )

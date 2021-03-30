@@ -5,9 +5,9 @@ import GenresList from '../genres-list/genres-list.jsx';
 import ShowMoreButton from '../show-more-button/show-more-button.jsx';
 import {string, bool, func, arrayOf} from 'prop-types';
 import {movieType} from '../../types/types.js';
-import {Genre, MAX_GENRES_COUNTER} from '../../const.js';
 import {ActionCreator} from '../../store/action.js';
-import {getGenres} from '../../utils/common.js';
+import {getMoviesByGenre, getMovieGenres} from '../../store/data/data-selectors.js';
+import {getSelectedMovie, getSelectedGenre, getMoviesPerPage} from '../../store/app/app-selectors.js';
 
 const Catalog = ({
   genres,
@@ -15,9 +15,14 @@ const Catalog = ({
   onGenreClick,
   selectedByGenreMovies,
   isShowMore,
-  onMovieCardClickHandler,
+  onMovieCardClick,
   onShowMoreClick
 }) => {
+  const onMovieCardClickHandler = (movie) => {
+    onMovieCardClick(movie);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -35,20 +40,19 @@ Catalog.propTypes = {
   isShowMore: bool.isRequired,
   onGenreClick: func.isRequired,
   onShowMoreClick: func.isRequired,
-  onMovieCardClickHandler: func.isRequired,
+  onMovieCardClick: func.isRequired,
 };
 
-const mapStateToProps = ({selectedGenre, selectedMovie, movies, moviesPerPage}) => {
-  const genres = [Genre.ALL_GENRES, ...getGenres(movies)].slice(0, MAX_GENRES_COUNTER);
-  const selectedByGenreMovies = selectedGenre === Genre.ALL_GENRES ? movies : movies.filter((mov) => mov.genre === selectedGenre);
-  const selectedByGenreMoviesSliced = selectedByGenreMovies.slice(0, moviesPerPage);
+const mapStateToProps = (state) => {
+  const selectedByGenreMovies = getMoviesByGenre(state);
+  const moviesPerPage = getMoviesPerPage(state);
   const isShowMore = selectedByGenreMovies.length > moviesPerPage;
 
   return {
-    genres,
-    selectedGenre,
-    selectedMovie,
-    selectedByGenreMovies: selectedByGenreMoviesSliced,
+    genres: getMovieGenres(state),
+    selectedGenre: getSelectedGenre(state),
+    selectedMovie: getSelectedMovie(state),
+    selectedByGenreMovies: selectedByGenreMovies.slice(0, moviesPerPage),
     isShowMore,
   };
 };
@@ -61,7 +65,7 @@ const mapDispatchToProps = (dispatch) => ({
   onShowMoreClick() {
     dispatch(ActionCreator.incrementMoviesPerPage());
   },
-  onMovieCardClickHandler(movie) {
+  onMovieCardClick(movie) {
     dispatch(ActionCreator.selectMovie(movie));
   }
 });

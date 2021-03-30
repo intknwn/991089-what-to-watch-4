@@ -102,7 +102,7 @@ const withVideoPlayer = (Component) => {
             src={previewVid}
             poster={previewImg}
             {...this.props.playerConfig}
-            onPlayClick={this.onPlayClickHandler}
+            onClick={this.onPlayClickHandler}
           />
         </Component>)
       ;

@@ -4,13 +4,19 @@ import Catalog from '../catalog/catalog.jsx';
 import {movieType} from '../../types/types.js';
 
 const Main = ({promoMovie, onPlayClick}) => {
-  const {name, genre, year} = promoMovie;
+  const {
+    name,
+    genre,
+    year,
+    backgroundImg,
+    posterImg
+  } = promoMovie;
 
   return (
     <div>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={name} />
+          <img src={backgroundImg} alt={name} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header movie-card__head">
@@ -30,7 +36,7 @@ const Main = ({promoMovie, onPlayClick}) => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt={`${name} poster`} width={218} height={327} />
+              <img src={posterImg} alt={`${name} poster`} width={218} height={327} />
             </div>
             <div className="movie-card__desc">
               <h2 className="movie-card__title">{name}</h2>
