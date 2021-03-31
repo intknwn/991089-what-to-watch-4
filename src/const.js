@@ -36,3 +36,8 @@ export const HttpCode = {
   SERVICE_UNAVAILABLE: 503,
 };
 
+export const ReviewForm = {
+  MIN_REVIEW_LENGTH: 50,
+  MAX_REVIEW_LENGTH: 400,
+  MAX_RATE: 5,
+};

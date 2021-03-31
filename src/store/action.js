@@ -7,6 +7,7 @@ export const ActionType = {
   SET_PROMO_MOVIE: `SET_PROMO_MOVIE`,
   SET_REVIEWS: `SET_REVIEWS`,
   SET_AUTH_STATUS: `SET_AUTH_STATUS`,
+  SET_LOADING_STATUS: `SET_LOADING_STATUS`,
   SET_USER: `SET_USER`,
   INC_MOVIES_PER_PAGE: `INC_MOVIES_PER_PAGE`,
   RESET_MOVIES_PER_PAGE: `RESET_MOVIES_PER_PAGE`,
@@ -38,6 +39,10 @@ export const ActionCreator = {
   setUser: (user) => ({
     type: ActionType.SET_USER,
     payload: user,
+  }),
+  setLoadingStatus: (isLoading) => ({
+    type: ActionType.SET_LOADING_STATUS,
+    payload: isLoading,
   }),
   incrementMoviesPerPage: () => ({
     type: ActionType.INC_MOVIES_PER_PAGE,
@@ -82,6 +87,21 @@ export const Operation = {
       .then(({data}) => {
         dispatch(ActionCreator.setUser(data));
         dispatch(ActionCreator.setAuthStatus(AuthStatus.AUTH));
+      });
+  },
+  postReview: (id, review, onSuccess) => (dispatch, _, api) => {
+    dispatch(ActionCreator.setLoadingStatus(true));
+
+    return api.post(`/comments/${id}`, review)
+      .then(({data}) => {
+        onSuccess();
+        dispatch(ActionCreator.setReviews(data));
+      })
+      .then(() => {
+        dispatch(ActionCreator.setLoadingStatus(false));
+      })
+      .catch(() => {
+        dispatch(ActionCreator.setLoadingStatus(false));
       });
   },
 };

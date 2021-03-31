@@ -9,3 +9,5 @@ export const getSelectedMovie = (state) => state[NameSpace.APP].selectedMovie;
 
 export const getPlaybackStatus = (state) => state[NameSpace.APP].isPlaying;
 
+export const getLoadingStatus = (state) => state[NameSpace.APP].isLoading;
+

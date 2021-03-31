@@ -12,6 +12,7 @@ it(`Reducer without arguments should return initial state`, () => {
     selectedGenre: Genre.ALL_GENRES,
     selectedMovie: null,
     isPlaying: false,
+    isLoading: false,
   });
 });
 
@@ -21,6 +22,7 @@ it(`Reducer should change a genre`, () => {
     selectedGenre: Genre.ALL_GENRES,
     selectedMovie: null,
     isPlaying: false,
+    isLoading: false,
   }, {
     type: ActionType.SET_MOVIES_GENRE,
     payload: `Comedy`,
@@ -29,6 +31,7 @@ it(`Reducer should change a genre`, () => {
     selectedGenre: `Comedy`,
     selectedMovie: null,
     isPlaying: false,
+    isLoading: false,
   });
 });
 
@@ -38,6 +41,7 @@ it(`Reducer should change movies per page counter`, () => {
     selectedGenre: Genre.ALL_GENRES,
     selectedMovie: null,
     isPlaying: false,
+    isLoading: false,
   }, {
     type: ActionType.INC_MOVIES_PER_PAGE,
   })).toEqual({
@@ -45,6 +49,7 @@ it(`Reducer should change movies per page counter`, () => {
     selectedGenre: Genre.ALL_GENRES,
     selectedMovie: null,
     isPlaying: false,
+    isLoading: false,
   });
 });
 
@@ -54,6 +59,7 @@ it(`Reducer should reset movies per page counter`, () => {
     selectedGenre: Genre.ALL_GENRES,
     selectedMovie: null,
     isPlaying: false,
+    isLoading: false,
   }, {
     type: ActionType.RESET_MOVIES_PER_PAGE,
   })).toEqual({
@@ -61,6 +67,7 @@ it(`Reducer should reset movies per page counter`, () => {
     selectedGenre: Genre.ALL_GENRES,
     selectedMovie: null,
     isPlaying: false,
+    isLoading: false,
   });
 });
 
@@ -70,6 +77,7 @@ it(`Reducer should change selected movie`, () => {
     selectedGenre: Genre.ALL_GENRES,
     selectedMovie: null,
     isPlaying: false,
+    isLoading: false,
   }, {
     type: ActionType.SELECT_MOVIE,
     payload: movies[0],
@@ -78,6 +86,7 @@ it(`Reducer should change selected movie`, () => {
     selectedGenre: Genre.ALL_GENRES,
     selectedMovie: movies[0],
     isPlaying: false,
+    isLoading: false,
   });
 });
 
@@ -87,6 +96,7 @@ it(`Reducer should change playing status`, () => {
     selectedGenre: Genre.ALL_GENRES,
     selectedMovie: null,
     isPlaying: false,
+    isLoading: false,
   }, {
     type: ActionType.PLAY_MOVIE,
   })).toEqual({
@@ -94,6 +104,26 @@ it(`Reducer should change playing status`, () => {
     selectedGenre: Genre.ALL_GENRES,
     selectedMovie: null,
     isPlaying: true,
+    isLoading: false,
+  });
+});
+
+it(`Reducer should change loading status`, () => {
+  expect(reducer({
+    moviesPerPage: MOVIES_PER_PAGE,
+    selectedGenre: Genre.ALL_GENRES,
+    selectedMovie: null,
+    isPlaying: false,
+    isLoading: false,
+  }, {
+    type: ActionType.SET_LOADING_STATUS,
+    payload: true,
+  })).toEqual({
+    moviesPerPage: MOVIES_PER_PAGE,
+    selectedGenre: Genre.ALL_GENRES,
+    selectedMovie: null,
+    isPlaying: false,
+    isLoading: true,
   });
 });
 
@@ -127,6 +157,13 @@ describe(`Action creators should work correctly`, () => {
   it(`playMovie action creator returns correct action`, () => {
     expect(ActionCreator.playMovie()).toEqual({
       type: ActionType.PLAY_MOVIE,
+    });
+  });
+
+  it(`setLoadingStatus action creator returns correct action`, () => {
+    expect(ActionCreator.setLoadingStatus(true)).toEqual({
+      type: ActionType.SET_LOADING_STATUS,
+      payload: true,
     });
   });
 });

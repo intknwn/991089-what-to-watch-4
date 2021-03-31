@@ -36,5 +36,8 @@ module.exports = {
       'react-dom$': `react-dom/profiling`,
       'scheduler/tracing': `scheduler/tracing-profiling`,
     }
-  }
+  },
+  optimization: {
+    minimize: false,
+  },
 };

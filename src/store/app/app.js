@@ -6,6 +6,7 @@ const initialState = {
   selectedGenre: Genre.ALL_GENRES,
   selectedMovie: null,
   isPlaying: false,
+  isLoading: false,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -29,6 +30,10 @@ export const reducer = (state = initialState, action) => {
     case ActionType.PLAY_MOVIE:
       return Object.assign({}, state, {
         isPlaying: !state.isPlaying,
+      });
+    case ActionType.SET_LOADING_STATUS:
+      return Object.assign({}, state, {
+        isLoading: action.payload,
       });
   }
 

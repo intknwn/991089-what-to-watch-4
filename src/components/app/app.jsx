@@ -6,15 +6,18 @@ import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
 import VideoPlayer from '../video-player/video-player.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
+import AddReviewPage from '../add-review-page/add-review-page.jsx';
 import withVideoPlayer from '../../hocs/with-video-player/with-video-player.jsx';
+import withReviewForm from '../../hocs/with-review-form/with-review-form.jsx';
 import {MOVIE_PAGE_PLAYER_CONFIG, AuthStatus} from '../../const.js';
 import {movieType} from '../../types/types.js';
 import {ActionCreator, Operation} from '../../store/action.js';
 import {getSimilarMovies, getPromoMovie} from '../../store/data/data-selectors.js';
-import {getSelectedMovie, getPlaybackStatus} from '../../store/app/app-selectors.js';
+import {getSelectedMovie, getPlaybackStatus, getLoadingStatus} from '../../store/app/app-selectors.js';
 import {getAuthStatus} from '../../store/user/user-selectors.js';
 
 const VideoPlayerWrapped = withVideoPlayer(VideoPlayer);
+const AddReviewPageWrapped = withReviewForm(AddReviewPage);
 class App extends React.Component {
 
   shouldComponentUpdate(nextProps) {
@@ -42,7 +45,9 @@ class App extends React.Component {
       selectMovie,
       playMovie,
       isAuthorized,
-      onSubmit
+      onSubmit,
+      postReview,
+      isLoading
     } = this.props;
 
     const onMovieCardClickHandler = (movie) => {
@@ -83,6 +88,13 @@ class App extends React.Component {
               <SignIn onSubmit={onSubmit}/>
             }
           </Route>
+          <Route exact path="/review">
+            <AddReviewPageWrapped
+              movie={promoMovie}
+              postReview={postReview}
+              isLoading={isLoading}
+            />
+          </Route>
         </Switch>
       </BrowserRouter>
     );
@@ -98,6 +110,8 @@ App.propTypes = {
   playMovie: func.isRequired,
   isAuthorized: bool.isRequired,
   onSubmit: func.isRequired,
+  postReview: func.isRequired,
+  isLoading: bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -105,7 +119,8 @@ const mapStateToProps = (state) => ({
   promoMovie: getPromoMovie(state),
   similarMovies: getSimilarMovies(state),
   isPlaying: getPlaybackStatus(state),
-  isAuthorized: getAuthStatus(state) === AuthStatus.AUTH ? true : false,
+  isAuthorized: getAuthStatus(state) === AuthStatus.AUTH,
+  isLoading: getLoadingStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -117,6 +132,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onSubmit(userData) {
     dispatch(Operation.signIn(userData));
+  },
+  postReview(id, review, onSuccess) {
+    dispatch(Operation.postReview(id, review, onSuccess));
   }
 });
 
