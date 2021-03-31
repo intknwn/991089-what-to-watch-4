@@ -1,9 +1,9 @@
 import React from 'react';
-import {func} from 'prop-types';
+import {func, bool} from 'prop-types';
 import Catalog from '../catalog/catalog.jsx';
 import {movieType} from '../../types/types.js';
 
-const Main = ({promoMovie, onPlayClick}) => {
+const Main = ({promoMovie, onPlayClick, isAuthorized}) => {
   const {
     name,
     genre,
@@ -28,9 +28,14 @@ const Main = ({promoMovie, onPlayClick}) => {
             </a>
           </div>
           <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
-            </div>
+            {isAuthorized ?
+              <div className="user-block__avatar">
+                <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
+              </div> :
+              <div className="user-block">
+                <a href="sign-in.html" className="user-block__link">Sign in</a>
+              </div>
+            }
           </div>
         </header>
         <div className="movie-card__wrap">
@@ -84,6 +89,7 @@ const Main = ({promoMovie, onPlayClick}) => {
 Main.propTypes = {
   promoMovie: movieType.isRequired,
   onPlayClick: func.isRequired,
+  isAuthorized: bool.isRequired,
 };
 
 export default Main;

@@ -48,6 +48,7 @@ it(`Main component should render main screen`, () => {
             <Main
               promoMovie={promoMovie}
               onPlayClick={() => {}}
+              isAuthorized={true}
             />
           </Provider>
       )

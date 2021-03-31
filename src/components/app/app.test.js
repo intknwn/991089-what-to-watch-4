@@ -86,6 +86,8 @@ it(`App component should render application`, () => {
           isPlaying={false}
           selectMovie={() => {}}
           playMovie={() => {}}
+          isAuthorized={true}
+          onSubmit={() => {}}
         />
     )
     .toJSON();

@@ -5,12 +5,14 @@ import {connect} from 'react-redux';
 import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
 import VideoPlayer from '../video-player/video-player.jsx';
+import SignIn from '../sign-in/sign-in.jsx';
 import withVideoPlayer from '../../hocs/with-video-player/with-video-player.jsx';
-import {MOVIES_LIST_PLAYER_CONFIG, MOVIE_PAGE_PLAYER_CONFIG} from '../../const.js';
+import {MOVIE_PAGE_PLAYER_CONFIG, AuthStatus} from '../../const.js';
 import {movieType} from '../../types/types.js';
-import {ActionCreator} from '../../store/action.js';
+import {ActionCreator, Operation} from '../../store/action.js';
 import {getSimilarMovies, getPromoMovie} from '../../store/data/data-selectors.js';
 import {getSelectedMovie, getPlaybackStatus} from '../../store/app/app-selectors.js';
+import {getAuthStatus} from '../../store/user/user-selectors.js';
 
 const VideoPlayerWrapped = withVideoPlayer(VideoPlayer);
 class App extends React.Component {
@@ -24,6 +26,10 @@ class App extends React.Component {
       return true;
     }
 
+    if (this.props.isAuthorized !== nextProps.isAuthorized) {
+      return true;
+    }
+
     return false;
   }
 
@@ -34,7 +40,9 @@ class App extends React.Component {
       isPlaying,
       similarMovies,
       selectMovie,
-      playMovie
+      playMovie,
+      isAuthorized,
+      onSubmit
     } = this.props;
 
     const onMovieCardClickHandler = (movie) => {
@@ -53,6 +61,7 @@ class App extends React.Component {
         promoMovie={promoMovie}
         onPlayClick={playMovie}
         onMovieCardClickHandler={onMovieCardClickHandler}
+        isAuthorized={isAuthorized}
       />;
 
     return (
@@ -68,19 +77,11 @@ class App extends React.Component {
               Component
             }
           </Route>
-          <Route exact path="/movie-page">
-            <MoviePage
-              movie={selectedMovie}
-              similarMovies={similarMovies}
-              onMovieCardClickHandler={() => {}}
-              onPlayClick={playMovie}
-            />
-          </Route>
-          <Route exact path="/video-player">
-            <VideoPlayerWrapped
-              movie={similarMovies[0]}
-              playerConfig={MOVIES_LIST_PLAYER_CONFIG}
-            />
+          <Route exact path="/sign-in">
+            {isAuthorized ?
+              Component :
+              <SignIn onSubmit={onSubmit}/>
+            }
           </Route>
         </Switch>
       </BrowserRouter>
@@ -95,6 +96,8 @@ App.propTypes = {
   similarMovies: arrayOf(movieType).isRequired,
   selectMovie: func.isRequired,
   playMovie: func.isRequired,
+  isAuthorized: bool.isRequired,
+  onSubmit: func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -102,6 +105,7 @@ const mapStateToProps = (state) => ({
   promoMovie: getPromoMovie(state),
   similarMovies: getSimilarMovies(state),
   isPlaying: getPlaybackStatus(state),
+  isAuthorized: getAuthStatus(state) === AuthStatus.AUTH ? true : false,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -110,6 +114,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   playMovie() {
     dispatch(ActionCreator.playMovie());
+  },
+  onSubmit(userData) {
+    dispatch(Operation.signIn(userData));
   }
 });
 

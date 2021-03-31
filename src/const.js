@@ -23,3 +23,16 @@ export const Tab = {
 export const Genre = {
   ALL_GENRES: `All genres`,
 };
+
+export const AuthStatus = {
+  AUTH: `AUTH`,
+  NOT_AUTH: `NOT_AUTH`,
+};
+
+export const HttpCode = {
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  INTERNAL_ERROR: 500,
+  SERVICE_UNAVAILABLE: 503,
+};
+
