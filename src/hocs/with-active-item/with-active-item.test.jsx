@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import PropTypes from 'prop-types';
-import withActiveTab from './with-active-tab.jsx';
+import withActiveItem from './with-active-item.jsx';
 
 const MockComponent = (props) => {
   const {children} = props;
@@ -20,9 +20,9 @@ MockComponent.propTypes = {
   ]).isRequired,
 };
 
-const MockComponentWrapped = withActiveTab(MockComponent);
+const MockComponentWrapped = withActiveItem(MockComponent);
 
-it(`withActiveTab component should render correctly`, () => {
+it(`withActiveItem component should render correctly`, () => {
   const tree = renderer.create((
     <MockComponentWrapped>
       <React.Fragment />

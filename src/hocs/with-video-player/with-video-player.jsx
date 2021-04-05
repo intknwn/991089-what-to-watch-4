@@ -1,6 +1,5 @@
 import React from 'react';
-import {func} from 'prop-types';
-import {videoType, movieType} from '../../types/types.js';
+import {videoType} from '../../types/types.js';
 import {formatTimeLeft, getProgress} from '../../utils/common.js';
 
 const withVideoPlayer = (Component) => {
@@ -11,6 +10,7 @@ const withVideoPlayer = (Component) => {
       this._videoRef = React.createRef();
 
       this.state = {
+        video: null,
         isPlaying: false,
         currentTime: 0,
         duration: 0,
@@ -20,6 +20,7 @@ const withVideoPlayer = (Component) => {
       this.onLeaveHandler = this._onLeaveHandler.bind(this);
       this.onPlayClickHandler = this._onPlayClickHandler.bind(this);
       this.onFullScreenClickHandler = this._onFullScreenClickHandler.bind(this);
+      this.setVideo = this._setVideo.bind(this);
     }
 
     componentDidMount() {
@@ -54,8 +55,12 @@ const withVideoPlayer = (Component) => {
       const videoElement = this._videoRef.current;
 
       if (videoElement) {
-        videoElement.oncanplaythrough = null;
+        videoElement.oncanplay = null;
       }
+    }
+
+    _setVideo(video) {
+      this.setState(({video}));
     }
 
     _onEnterHandler() {
@@ -78,15 +83,16 @@ const withVideoPlayer = (Component) => {
     }
 
     render() {
-      const {isPlaying, duration, currentTime} = this.state;
-      const {name, previewVid, previewImg} = this.props.movie;
+      const {video, isPlaying, duration, currentTime} = this.state;
       const timeLeft = formatTimeLeft(duration - currentTime);
       const progress = getProgress(duration, currentTime);
 
       return (
         <Component
           {...this.props}
-          movieName={name}
+          videoRef={this._videoRef}
+          setVideo={this.setVideo}
+          video={video}
           timeLeft={timeLeft}
           progress={progress}
           isPlaying={isPlaying}
@@ -94,25 +100,13 @@ const withVideoPlayer = (Component) => {
           onMouseLeave={this.onLeaveHandler}
           onPlayClick={this.onPlayClickHandler}
           onFullScreenClick={this.onFullScreenClickHandler}
-          onExitClick={this.props.onExitClick}
-        >
-          <video
-            ref={this._videoRef}
-            className="player__video"
-            src={previewVid}
-            poster={previewImg}
-            {...this.props.playerConfig}
-            onClick={this.onPlayClickHandler}
-          />
-        </Component>)
-      ;
+        />
+      );
     }
   }
 
   WithVideoPlayer.propTypes = {
-    movie: movieType,
     playerConfig: videoType,
-    onExitClick: func,
   };
 
   return WithVideoPlayer;

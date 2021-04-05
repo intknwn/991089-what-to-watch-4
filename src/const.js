@@ -9,7 +9,7 @@ export const MOVIES_LIST_PLAYER_CONFIG = {
 };
 
 export const MOVIE_PAGE_PLAYER_CONFIG = {
-  autoPlay: true,
+  autoPlay: false,
   muted: false,
   loop: false,
 };
@@ -40,4 +40,13 @@ export const ReviewForm = {
   MIN_REVIEW_LENGTH: 50,
   MAX_REVIEW_LENGTH: 400,
   MAX_RATE: 5,
+};
+
+export const AppRoute = {
+  MAIN: `/`,
+  SIGN_IN: `/sign-in`,
+  MY_LIST: `/mylist`,
+  REVIEW: `/review`,
+  PLAYER: `/player`,
+  MOVIE: `/movies`,
 };

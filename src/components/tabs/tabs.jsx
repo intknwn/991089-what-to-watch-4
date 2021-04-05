@@ -1,51 +1,72 @@
 import React from 'react';
-import {string, func} from 'prop-types';
+import {string, func, arrayOf} from 'prop-types';
 import MovieOverview from '../movie-overview/movie-overview.jsx';
 import MovieDetails from '../movie-details/movie-details.jsx';
 import MovieReviews from '../movie-reviews/movie-reviews.jsx';
 import {Tab} from '../../const.js';
-import {movieType} from '../../types/types.js';
+import {movieType, reviewType} from '../../types/types.js';
 
-const getInfoByTab = (tabName, movie) => {
+const getInfoByTab = (tabName, movie, reviews) => {
   switch (tabName) {
     case Tab.OVERVIEW:
       return <MovieOverview movie={movie}/>;
     case Tab.DETAILS:
       return <MovieDetails movie={movie}/>;
     case Tab.REVIEWS:
-      return <MovieReviews id={movie.id}/>;
+      return <MovieReviews reviews={reviews}/>;
   }
 
   return <MovieOverview movie={movie}/>;
 };
 
-const Tabs = ({activeTab, onTabClick, movie}) => {
-  return (
-    <div className="movie-card__desc">
-      <nav className="movie-nav movie-card__nav">
-        <ul className="movie-nav__list">
-          {Object.values(Tab).map((tabName) => {
-            const className = activeTab === tabName ? `movie-nav__item movie-nav__item--active` : `movie-nav__item`;
+class Tabs extends React.PureComponent {
 
-            return (
-              <li key={tabName} className={className} onClick={() => onTabClick(tabName)}>
-                <a href="#" className="movie-nav__link">{tabName}</a>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
+  componentDidUpdate(prevProps) {
+    if (prevProps.movie.id !== this.props.movie.id) {
+      this.props.activeItemChangeHandler(Tab.OVERVIEW);
+    }
+  }
 
-      {getInfoByTab(activeTab, movie)}
+  render() {
+    const {
+      activeItem: activeTab,
+      activeItemChangeHandler: onTabClick,
+      movie,
+      reviews
+    } = this.props;
 
-    </div>
-  );
-};
+    return (
+      <div className="movie-card__desc">
+        <nav className="movie-nav movie-card__nav">
+          <ul className="movie-nav__list">
+            {Object.values(Tab).map((tabName) => {
+              const className = activeTab === tabName ? `movie-nav__item movie-nav__item--active` : `movie-nav__item`;
+              const onTabClickHandler = (evt) => {
+                evt.preventDefault();
+                onTabClick(tabName);
+              };
+
+              return (
+                <li key={tabName} className={className}>
+                  <a href="#" className="movie-nav__link" onClick={onTabClickHandler}>{tabName}</a>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+
+        {getInfoByTab(activeTab, movie, reviews)}
+
+      </div>
+    );
+  }
+}
 
 Tabs.propTypes = {
-  activeTab: string.isRequired,
-  onTabClick: func.isRequired,
+  activeItem: string.isRequired,
+  activeItemChangeHandler: func.isRequired,
   movie: movieType.isRequired,
+  reviews: arrayOf(reviewType).isRequired
 };
 
 export default Tabs;

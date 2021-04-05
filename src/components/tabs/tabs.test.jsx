@@ -1,14 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import {Provider} from 'react-redux';
-import MockAdapter from 'axios-mock-adapter';
 import Tabs from './tabs.jsx';
 import {Tab} from '../../const.js';
-import NameSpace from '../../store/namespace.js';
-import reviews from '../../mocks/reviews.js';
-import {createAPI} from '../../api/api.js';
 
 const movie = {
   id: 1,
@@ -27,26 +20,44 @@ const movie = {
   runtime: 132,
 };
 
-const api = createAPI(() => {});
-const apiMock = new MockAdapter(api);
-
-apiMock.onGet(`/comments/${movie.id}`).reply(200, reviews);
-
-const mockStore = configureStore([thunk.withExtraArgument(api)]);
-
-
-const initialState = {
-  [NameSpace.DATA]: {
-    reviews,
+const reviews = [{
+  id: 1,
+  user: {
+    id: 1,
+    name: `Kate Doughlas`,
   },
-};
+  rating: 8.9,
+  comment: `Awesome movie!`,
+  date: `2019-05-08`,
+},
+{
+  id: 2,
+  user: {
+    id: 2,
+    name: `Bill Westmoore`,
+  },
+  rating: 8.0,
+  comment: `Fantastic! Best movie ever!`,
+  date: `2015-11-18`,
+},
+{
+  id: 3,
+  user: {
+    id: 3,
+    name: `Amanda Rockefeller`,
+  },
+  rating: 3.0,
+  comment: `Bummer! The worst movie ever!`,
+  date: `2015-11-18`,
+}];
 
 it(`Tabs component should render overview tab correctly`, () => {
   const tree = renderer.create(
       <Tabs
-        activeTab={Tab.OVERVIEW}
-        onTabClick={() => {}}
+        activeItem={Tab.OVERVIEW}
+        activeItemChangeHandler={() => {}}
         movie={movie}
+        reviews={reviews}
       />
   ).toJSON();
 
@@ -56,9 +67,10 @@ it(`Tabs component should render overview tab correctly`, () => {
 it(`Tabs component should render details tab correctly`, () => {
   const tree = renderer.create(
       <Tabs
-        activeTab={Tab.DETAILS}
-        onTabClick={() => {}}
+        activeItem={Tab.DETAILS}
+        activeItemChangeHandler={() => {}}
         movie={movie}
+        reviews={reviews}
       />
   ).toJSON();
 
@@ -66,18 +78,13 @@ it(`Tabs component should render details tab correctly`, () => {
 });
 
 it(`Tabs component should render reviews tab correctly`, () => {
-  const store = mockStore(initialState);
-
-
   const tree = renderer.create(
-      <Provider store={store}>
-        <Tabs
-          activeTab={Tab.REVIEWS}
-          onTabClick={() => {}}
-          movie={movie}
-        />
-      </Provider>
-
+      <Tabs
+        activeItem={Tab.REVIEWS}
+        activeItemChangeHandler={() => {}}
+        movie={movie}
+        reviews={reviews}
+      />
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -1,4 +1,4 @@
-import {string, number, bool, shape, arrayOf} from 'prop-types';
+import {string, number, bool, shape, func, arrayOf, oneOfType, instanceOf} from 'prop-types';
 
 export const movieType = shape({
   name: string.isRequired,
@@ -31,3 +31,21 @@ export const videoType = shape({
   loop: bool,
 });
 
+export const matchType = shape({
+  params: shape({
+    id: string,
+  })
+});
+
+export const locationType = shape({
+  hash: string,
+  key: string,
+  pathname: string,
+  search: string,
+  state: shape({}),
+});
+
+export const refType = oneOfType([
+  func,
+  shape({current: instanceOf(Element)})
+]);

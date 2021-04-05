@@ -1,13 +1,10 @@
 import React from 'react';
-import Enzyme, {mount} from 'enzyme';
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import MoviesList from './movies-list.jsx';
-
-Enzyme.configure({
-  adapter: new Adapter()
-});
+import renderer from 'react-test-renderer';
+import {BrowserRouter} from 'react-router-dom';
+import AddReviewPage from './add-review-page.jsx';
 
 const movies = [{
+  id: 1,
   name: `Fantastic Beasts: The Crimes of Grindelwald`,
   previewImg: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
   backgroundImg: `https://via.placeholder.com/1300x552`,
@@ -22,6 +19,7 @@ const movies = [{
   cast: [`Eddie Redmayne`, `Katherine Waterston`, `Dan Fogler`],
 },
 {
+  id: 2,
   name: `Bohemian Rhapsody`,
   previewImg: `img/bohemian-rhapsody.jpg`,
   backgroundImg: `https://via.placeholder.com/1300x552`,
@@ -36,6 +34,7 @@ const movies = [{
   cast: [`Rami Malek`, `Lucy Boynton`, `Gwilym Lee`],
 },
 {
+  id: 3,
   name: `We need to talk about Kevin`,
   previewImg: `img/we-need-to-talk-about-kevin.jpg`,
   backgroundImg: `https://via.placeholder.com/1300x552`,
@@ -50,6 +49,7 @@ const movies = [{
   cast: [`Tilda Swinton`, `John C. Reilly`, `Ezra Miller`],
 },
 {
+  id: 4,
   name: `What We Do in the Shadows`,
   previewImg: `img/what-we-do-in-the-shadows.jpg`,
   backgroundImg: `https://via.placeholder.com/1300x552`,
@@ -64,21 +64,25 @@ const movies = [{
   cast: [`Kayvan Novak`, `Matt Berry`, `Natasia Demetriou`],
 }];
 
-it(`Click on list item's title should trigger callback function`, () => {
-  const onMovieCardClickHandler = jest.fn();
-
-  const mainScreen = mount(
-      <MoviesList
-        movies={movies}
-        onMovieCardClickHandler={onMovieCardClickHandler}
-      />
+it(`AddReviewPage should render correctly`, () => {
+  const tree = renderer.create(
+      <BrowserRouter>
+        <AddReviewPage
+          movie={movies[0]}
+          movies={movies}
+          setMovie={() => {}}
+          comment={`Sick movie y'know`}
+          rating={5}
+          onRatingChange={() => {}}
+          onCommentChange={() => {}}
+          isDisabled={false}
+          isLoading={false}
+          onSubmit={() => {}}
+          match={{params: {id: `1`}}}
+          location={{}}
+        />
+      </BrowserRouter>
   );
 
-  const titles = mainScreen.find(`.small-movie-card__title`);
-  titles.forEach((title) => title.simulate(`click`, {
-    preventDefault: () => {
-    }
-  }));
-
-  expect(onMovieCardClickHandler.mock.calls.length).toBe(4);
+  expect(tree).toMatchSnapshot();
 });

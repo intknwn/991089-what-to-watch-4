@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {MovieReviews} from './movie-reviews.jsx';
+import MovieReviews from './movie-reviews.jsx';
 
 const reviews = [{
   id: 1,
@@ -37,8 +37,6 @@ it(`MoviePage component should render page with movie details`, () => {
   const tree = renderer.create(
       <MovieReviews
         reviews={reviews}
-        id={1}
-        getReviewsById={() => {}}
       />
   ).toJSON();
 

@@ -1,16 +1,31 @@
 import React from 'react';
-import {func, bool} from 'prop-types';
+import {string, bool, func, arrayOf} from 'prop-types';
+import {Link} from 'react-router-dom';
 import Catalog from '../catalog/catalog.jsx';
 import {movieType} from '../../types/types.js';
+import history from '../../history.js';
+import {AppRoute, Genre} from '../../const.js';
+import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
 
-const Main = ({promoMovie, onPlayClick, isAuthorized}) => {
-  const {
+const CatalogWrapped = withActiveItem(Catalog);
+
+const Main = ({
+  promoMovie: {
+    id,
     name,
     genre,
     year,
     backgroundImg,
-    posterImg
-  } = promoMovie;
+    posterImg,
+    isFavorite,
+  },
+  movies,
+  genres,
+  isAuthorized,
+  setFavoriteStatus
+}) => {
+  const playClickHandler = () => history.push(`${AppRoute.PLAYER}/${id}`);
+  const myListClickHandler = () => setFavoriteStatus(id, isFavorite);
 
   return (
     <div>
@@ -30,10 +45,10 @@ const Main = ({promoMovie, onPlayClick, isAuthorized}) => {
           <div className="user-block">
             {isAuthorized ?
               <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
+                <Link to="/mylist"><img src="img/avatar.jpg" alt="User avatar" width={63} height={63} /></Link>
               </div> :
               <div className="user-block">
-                <a href="sign-in.html" className="user-block__link">Sign in</a>
+                <Link to="/sign-in" className="user-block__link">Sign in</Link>
               </div>
             }
           </div>
@@ -50,16 +65,21 @@ const Main = ({promoMovie, onPlayClick, isAuthorized}) => {
                 <span className="movie-card__year">{year}</span>
               </p>
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button" onClick={onPlayClick}>
+                <button className="btn btn--play movie-card__button" type="button" onClick={playClickHandler}>
                   <svg viewBox="0 0 19 19" width={19} height={19}>
                     <use xlinkHref="#play-s" />
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width={19} height={20}>
-                    <use xlinkHref="#add" />
-                  </svg>
+                <button className="btn btn--list movie-card__button" type="button" onClick={myListClickHandler}>
+                  {isFavorite ?
+                    <svg viewBox="0 0 18 14" width={18} height={14}>
+                      <use xlinkHref="#in-list" />
+                    </svg> :
+                    <svg viewBox="0 0 19 20" width={19} height={20}>
+                      <use xlinkHref="#add" />
+                    </svg>
+                  }
                   <span>My list</span>
                 </button>
               </div>
@@ -68,7 +88,11 @@ const Main = ({promoMovie, onPlayClick, isAuthorized}) => {
         </div>
       </section>
       <div className="page-content">
-        <Catalog />
+        <CatalogWrapped
+          movies={movies}
+          genres={genres}
+          activeItem={Genre.ALL_GENRES}
+        />
         <footer className="page-footer">
           <div className="logo">
             <a className="logo__link logo__link--light">
@@ -88,8 +112,10 @@ const Main = ({promoMovie, onPlayClick, isAuthorized}) => {
 
 Main.propTypes = {
   promoMovie: movieType.isRequired,
-  onPlayClick: func.isRequired,
+  movies: arrayOf(movieType).isRequired,
+  genres: arrayOf(string).isRequired,
   isAuthorized: bool.isRequired,
+  setFavoriteStatus: func.isRequired,
 };
 
 export default Main;

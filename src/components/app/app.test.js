@@ -19,6 +19,7 @@ const promoMovie = {
 };
 
 const movies = [{
+  id: 1,
   name: `Fantastic Beasts: The Crimes of Grindelwald`,
   previewImg: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
   backgroundImg: `https://via.placeholder.com/1300x552`,
@@ -33,6 +34,7 @@ const movies = [{
   cast: [`Eddie Redmayne`, `Katherine Waterston`, `Dan Fogler`],
 },
 {
+  id: 2,
   name: `Bohemian Rhapsody`,
   previewImg: `img/bohemian-rhapsody.jpg`,
   backgroundImg: `https://via.placeholder.com/1300x552`,
@@ -47,6 +49,7 @@ const movies = [{
   cast: [`Rami Malek`, `Lucy Boynton`, `Gwilym Lee`],
 },
 {
+  id: 3,
   name: `We need to talk about Kevin`,
   previewImg: `img/we-need-to-talk-about-kevin.jpg`,
   backgroundImg: `https://via.placeholder.com/1300x552`,
@@ -61,6 +64,7 @@ const movies = [{
   cast: [`Tilda Swinton`, `John C. Reilly`, `Ezra Miller`],
 },
 {
+  id: 4,
   name: `What We Do in the Shadows`,
   previewImg: `img/what-we-do-in-the-shadows.jpg`,
   backgroundImg: `https://via.placeholder.com/1300x552`,
@@ -75,22 +79,46 @@ const movies = [{
   cast: [`Kayvan Novak`, `Matt Berry`, `Natasia Demetriou`],
 }];
 
+const reviews = [{
+  id: 1,
+  user: {
+    id: 1,
+    name: `Kate Muir`,
+  },
+  rating: 8.9,
+  comment: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+  date: `2019-05-08T14:13:56.569Z`,
+},
+{
+  id: 2,
+  user: {
+    id: 2,
+    name: `Bill Goodykoontz`,
+  },
+  rating: 8.0,
+  comment: `Anderson's films are too precious for some, but for those of us willing to lose ourselves in them, they're a delight. "The Grand Budapest Hotel" is no different, except that he has added a hint of gravitas to the mix, improving the recipe.`,
+  date: `2015-11-18`,
+}];
+
+const genres = [`All genres`, `Comedy`, `Adventure`, `Crime`, `Drama`, `Action`, `Thriller`, `Fantasy`];
+
 it(`App component should render application`, () => {
   const tree = renderer
     .create(
         <App
+          movies={movies}
+          reviews={reviews}
           promoMovie={promoMovie}
-          selectedMovie={movies[0]}
-          similarMovies={movies}
-          onMovieCardClickHandler={() => {}}
-          isPlaying={false}
-          selectMovie={() => {}}
-          playMovie={() => {}}
+          genres={genres}
           isAuthorized={true}
           onSubmit={() => {}}
           postReview={() => {}}
+          getMovieReviews={() => {}}
           isLoading={false}
+          checkAuth={() => {}}
+          setFavoriteStatus={() => {}}
         />
+
     )
     .toJSON();
 

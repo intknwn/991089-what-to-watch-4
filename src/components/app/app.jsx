@@ -1,6 +1,6 @@
 import React from 'react';
-import {func, arrayOf, bool} from 'prop-types';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {string, func, bool, arrayOf} from 'prop-types';
+import {Router, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Main from '../main/main.jsx';
 import MoviePage from '../movie-page/movie-page.jsx';
@@ -9,133 +9,128 @@ import SignIn from '../sign-in/sign-in.jsx';
 import AddReviewPage from '../add-review-page/add-review-page.jsx';
 import withVideoPlayer from '../../hocs/with-video-player/with-video-player.jsx';
 import withReviewForm from '../../hocs/with-review-form/with-review-form.jsx';
-import {MOVIE_PAGE_PLAYER_CONFIG, AuthStatus} from '../../const.js';
-import {movieType} from '../../types/types.js';
-import {ActionCreator, Operation} from '../../store/action.js';
-import {getSimilarMovies, getPromoMovie} from '../../store/data/data-selectors.js';
-import {getSelectedMovie, getPlaybackStatus, getLoadingStatus} from '../../store/app/app-selectors.js';
+import {MOVIE_PAGE_PLAYER_CONFIG, AuthStatus, AppRoute} from '../../const.js';
+import {movieType, reviewType} from '../../types/types.js';
+import {Operation} from '../../store/action.js';
+import {getMovies, getReviews, getPromoMovie, getMovieGenres} from '../../store/data/data-selectors.js';
+import {getLoadingStatus} from '../../store/app/app-selectors.js';
 import {getAuthStatus} from '../../store/user/user-selectors.js';
+import history from '../../history.js';
 
 const VideoPlayerWrapped = withVideoPlayer(VideoPlayer);
 const AddReviewPageWrapped = withReviewForm(AddReviewPage);
-class App extends React.Component {
+class App extends React.PureComponent {
 
-  shouldComponentUpdate(nextProps) {
-    if (this.props.selectedMovie !== nextProps.selectedMovie) {
-      return true;
-    }
-
-    if (this.props.isPlaying !== nextProps.isPlaying) {
-      return true;
-    }
-
-    if (this.props.isAuthorized !== nextProps.isAuthorized) {
-      return true;
-    }
-
-    return false;
+  componentDidMount() {
+    this.props.checkAuth();
   }
 
   render() {
     const {
-      selectedMovie,
+      movies,
+      reviews,
       promoMovie,
-      isPlaying,
-      similarMovies,
-      selectMovie,
-      playMovie,
+      genres,
       isAuthorized,
       onSubmit,
       postReview,
-      isLoading
+      getMovieReviews,
+      isLoading,
+      setFavoriteStatus,
     } = this.props;
 
-    const onMovieCardClickHandler = (movie) => {
-      selectMovie(movie);
-      window.scrollTo(0, 0);
-    };
-
-    const Component = selectedMovie ?
-      <MoviePage
-        movie={selectedMovie}
-        similarMovies={similarMovies}
-        onMovieCardClickHandler={onMovieCardClickHandler}
-        onPlayClick={playMovie}
-      /> :
-      <Main
-        promoMovie={promoMovie}
-        onPlayClick={playMovie}
-        onMovieCardClickHandler={onMovieCardClickHandler}
-        isAuthorized={isAuthorized}
-      />;
-
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <Switch>
-          <Route exact path="/">
-            {isPlaying ?
-              <VideoPlayerWrapped
-                movie={selectedMovie || promoMovie}
-                playerConfig={MOVIE_PAGE_PLAYER_CONFIG}
-                onExitClick={playMovie}
-              /> :
-              Component
-            }
-          </Route>
-          <Route exact path="/sign-in">
-            {isAuthorized ?
-              Component :
-              <SignIn onSubmit={onSubmit}/>
-            }
-          </Route>
-          <Route exact path="/review">
-            <AddReviewPageWrapped
-              movie={promoMovie}
-              postReview={postReview}
-              isLoading={isLoading}
+          <Route exact path={AppRoute.MAIN}>
+            <Main
+              promoMovie={promoMovie}
+              movies={movies}
+              genres={genres}
+              isAuthorized={isAuthorized}
+              setFavoriteStatus={setFavoriteStatus}
             />
           </Route>
+
+          <Route exact path={AppRoute.SIGN_IN}>
+            <SignIn onSubmit={onSubmit}/>
+          </Route>
+
+          <Route exact path={`${AppRoute.MOVIE}/:id${AppRoute.REVIEW}`}
+            render={
+              (routeProps) =>
+                <AddReviewPageWrapped
+                  {...routeProps}
+                  movies={movies}
+                  postReview={postReview}
+                  isLoading={isLoading}
+                />
+            }/>
+
+          <Route exact path={`${AppRoute.PLAYER}/:id`}
+            render={
+              (routeProps) =>
+                <VideoPlayerWrapped
+                  {...routeProps}
+                  playerConfig={MOVIE_PAGE_PLAYER_CONFIG}
+                />
+            }/>
+
+          <Route exact path={`${AppRoute.MOVIE}/:id`}
+            render={(routeProps) =>
+              <MoviePage
+                {...routeProps}
+                movies={movies}
+                reviews={reviews}
+                getMovieReviews={getMovieReviews}
+                setFavoriteStatus={setFavoriteStatus}
+              />
+            }/>
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
 
 App.propTypes = {
-  selectedMovie: movieType,
+  movies: arrayOf(movieType).isRequired,
+  reviews: arrayOf(reviewType).isRequired,
   promoMovie: movieType,
-  isPlaying: bool.isRequired,
-  similarMovies: arrayOf(movieType).isRequired,
-  selectMovie: func.isRequired,
-  playMovie: func.isRequired,
+  genres: arrayOf(string).isRequired,
   isAuthorized: bool.isRequired,
   onSubmit: func.isRequired,
   postReview: func.isRequired,
+  getMovieReviews: func.isRequired,
   isLoading: bool.isRequired,
+  checkAuth: func.isRequired,
+  setFavoriteStatus: func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  selectedMovie: getSelectedMovie(state),
+  movies: getMovies(state),
+  reviews: getReviews(state),
   promoMovie: getPromoMovie(state),
-  similarMovies: getSimilarMovies(state),
-  isPlaying: getPlaybackStatus(state),
+  genres: getMovieGenres(state),
   isAuthorized: getAuthStatus(state) === AuthStatus.AUTH,
   isLoading: getLoadingStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  selectMovie(movie) {
-    dispatch(ActionCreator.selectMovie(movie));
-  },
-  playMovie() {
-    dispatch(ActionCreator.playMovie());
-  },
   onSubmit(userData) {
     dispatch(Operation.signIn(userData));
   },
+  getMovieReviews(id) {
+    dispatch(Operation.getReviews(id));
+  },
   postReview(id, review, onSuccess) {
     dispatch(Operation.postReview(id, review, onSuccess));
-  }
+  },
+  checkAuth() {
+    dispatch(Operation.getAuthStatus());
+  },
+  setFavoriteStatus(id, isFavorite) {
+    dispatch(Operation.setFavoriteStatus(id, isFavorite));
+  },
 });
 
 export {App};

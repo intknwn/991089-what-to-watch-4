@@ -3,6 +3,7 @@ import renderer from 'react-test-renderer';
 import MoviesList from './movies-list.jsx';
 
 const movies = [{
+  id: 1,
   name: `Fantastic Beasts: The Crimes of Grindelwald`,
   previewImg: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
   backgroundImg: `https://via.placeholder.com/1300x552`,
@@ -17,6 +18,7 @@ const movies = [{
   cast: [`Eddie Redmayne`, `Katherine Waterston`, `Dan Fogler`],
 },
 {
+  id: 2,
   name: `Bohemian Rhapsody`,
   previewImg: `img/bohemian-rhapsody.jpg`,
   backgroundImg: `https://via.placeholder.com/1300x552`,
@@ -31,6 +33,7 @@ const movies = [{
   cast: [`Rami Malek`, `Lucy Boynton`, `Gwilym Lee`],
 },
 {
+  id: 3,
   name: `We need to talk about Kevin`,
   previewImg: `img/we-need-to-talk-about-kevin.jpg`,
   backgroundImg: `https://via.placeholder.com/1300x552`,
@@ -45,6 +48,7 @@ const movies = [{
   cast: [`Tilda Swinton`, `John C. Reilly`, `Ezra Miller`],
 },
 {
+  id: 4,
   name: `What We Do in the Shadows`,
   previewImg: `img/what-we-do-in-the-shadows.jpg`,
   backgroundImg: `https://via.placeholder.com/1300x552`,
@@ -63,7 +67,8 @@ it(`MoviesList component should render list of movies`, () => {
   const tree = renderer.create(
       <MoviesList
         movies={movies}
-        onMovieCardClickHandler={() => {}}
+        itemsToShow={8}
+        itemsToShowChangeHandler={() => {}}
       />
   ).toJSON();
 

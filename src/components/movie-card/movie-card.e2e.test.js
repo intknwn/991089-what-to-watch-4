@@ -22,21 +22,21 @@ const movie = {
   cast: [`Eddie Redmayne`, `Katherine Waterston`, `Dan Fogler`],
 };
 
-const MockComponent = () => <video />;
-
 it(`Hover on movie card should trigger callback with active movie as an argument`, () => {
   const movieCardHoverHandler = jest.fn();
 
   const movieCard = shallow(
       <MovieCard
+        videoRef={{}}
         movie={movie}
         onClick={() => {}}
         isPlaying={false}
         onMouseEnter={movieCardHoverHandler}
         onMouseLeave={() => {}}
-      >
-        <MockComponent />
-      </MovieCard>
+        playerConfig={{
+          loop: true,
+        }}
+      />
   );
 
   const card = movieCard.find(`.small-movie-card`);
@@ -45,25 +45,3 @@ it(`Hover on movie card should trigger callback with active movie as an argument
   expect(movieCardHoverHandler).toBeCalledWith(movie);
 });
 
-it(`Click on movie card should trigger callback with active movie as an argument`, () => {
-  const movieCardClickHandler = jest.fn();
-
-  const movieCard = shallow(
-      <MovieCard
-        movie={movie}
-        onClick={movieCardClickHandler}
-        isPlaying={false}
-        onMouseEnter={() => {}}
-        onMouseLeave={() => {}}
-      >
-        <MockComponent />
-      </MovieCard>
-  );
-
-  const card = movieCard.find(`.small-movie-card`);
-  card.simulate(`click`, {
-    preventDefault: () => {}
-  });
-
-  expect(movieCardClickHandler).toBeCalledWith(movie);
-});

@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import PropTypes from 'prop-types';
-import withVideoPlayer from './with-video-player.jsx';
+import withShowMore from './with-show-more.jsx';
 
 const MockComponent = (props) => {
   const {children} = props;
@@ -20,13 +20,11 @@ MockComponent.propTypes = {
   ]).isRequired,
 };
 
-const MockComponentWrapped = withVideoPlayer(MockComponent);
+const MockComponentWrapped = withShowMore(MockComponent);
 
-it(`withVideoPlayer component should render correctly`, () => {
+it(`withShowMore component should render correctly`, () => {
   const tree = renderer.create((
-    <MockComponentWrapped
-      playerConfig={{}}
-    >
+    <MockComponentWrapped>
       <React.Fragment />
     </MockComponentWrapped>
   )).toJSON();

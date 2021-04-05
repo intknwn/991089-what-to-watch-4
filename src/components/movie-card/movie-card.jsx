@@ -1,13 +1,22 @@
 import React from 'react';
-import {bool, func, node} from 'prop-types';
-import {movieType} from '../../types/types.js';
+import {bool, func} from 'prop-types';
+import {movieType, refType, videoType} from '../../types/types.js';
+import history from '../../history.js';
+import {AppRoute} from '../../const.js';
 
-const MovieCard = ({movie, onMouseEnter, onMouseLeave, onClick, isPlaying, children}) => {
-  const {name, previewImg} = movie;
+const MovieCard = ({
+  videoRef,
+  movie,
+  onMouseEnter,
+  onMouseLeave,
+  isPlaying,
+  playerConfig
+}) => {
+  const {id, name, previewImg, previewVid} = movie;
 
   const clickHandler = (evt) => {
     evt.preventDefault();
-    onClick(movie);
+    history.push(`${AppRoute.MOVIE}/${id}`);
   };
 
   return (
@@ -19,7 +28,13 @@ const MovieCard = ({movie, onMouseEnter, onMouseLeave, onClick, isPlaying, child
     >
       <div className="small-movie-card__image">
         {isPlaying ?
-          children :
+          <video
+            className="player__video"
+            ref={videoRef}
+            src={previewVid}
+            poster={previewImg}
+            {...playerConfig}
+          /> :
           <img src={previewImg} alt={name} width={280} height={175} />
         }
       </div>
@@ -31,12 +46,12 @@ const MovieCard = ({movie, onMouseEnter, onMouseLeave, onClick, isPlaying, child
 };
 
 MovieCard.propTypes = {
+  videoRef: refType,
   movie: movieType.isRequired,
-  onClick: func.isRequired,
   isPlaying: bool.isRequired,
   onMouseEnter: func.isRequired,
   onMouseLeave: func.isRequired,
-  children: node.isRequired,
+  playerConfig: videoType.isRequired,
 };
 
 export default MovieCard;

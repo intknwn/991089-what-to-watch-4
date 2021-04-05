@@ -2,26 +2,22 @@ import {parseMovieData} from '../adapters/adapters.js';
 import {AuthStatus} from '../const.js';
 
 export const ActionType = {
-  SET_MOVIES_GENRE: `SET_MOVIES_GENRE`,
   SET_MOVIES: `SET_MOVIES`,
+  SET_FAVORITE_MOVIES: `SET_FAVORITE_MOVIES`,
   SET_PROMO_MOVIE: `SET_PROMO_MOVIE`,
   SET_REVIEWS: `SET_REVIEWS`,
   SET_AUTH_STATUS: `SET_AUTH_STATUS`,
   SET_LOADING_STATUS: `SET_LOADING_STATUS`,
   SET_USER: `SET_USER`,
-  INC_MOVIES_PER_PAGE: `INC_MOVIES_PER_PAGE`,
-  RESET_MOVIES_PER_PAGE: `RESET_MOVIES_PER_PAGE`,
-  SELECT_MOVIE: `SELECT_MOVIE`,
-  PLAY_MOVIE: `PLAY_MOVIE`,
 };
 
 export const ActionCreator = {
-  setMoviesGenre: (genre) => ({
-    type: ActionType.SET_MOVIES_GENRE,
-    payload: genre,
-  }),
   setMovies: (movies) => ({
     type: ActionType.SET_MOVIES,
+    payload: movies,
+  }),
+  setFavoriteMovies: (movies) => ({
+    type: ActionType.SET_FAVORITE_MOVIES,
     payload: movies,
   }),
   setPromoMovie: (movie) => ({
@@ -43,19 +39,6 @@ export const ActionCreator = {
   setLoadingStatus: (isLoading) => ({
     type: ActionType.SET_LOADING_STATUS,
     payload: isLoading,
-  }),
-  incrementMoviesPerPage: () => ({
-    type: ActionType.INC_MOVIES_PER_PAGE,
-  }),
-  resetMoviesPerPage: () => ({
-    type: ActionType.RESET_MOVIES_PER_PAGE,
-  }),
-  selectMovie: (movie) => ({
-    type: ActionType.SELECT_MOVIE,
-    payload: movie,
-  }),
-  playMovie: () => ({
-    type: ActionType.PLAY_MOVIE,
   }),
 };
 
@@ -102,6 +85,22 @@ export const Operation = {
       })
       .catch(() => {
         dispatch(ActionCreator.setLoadingStatus(false));
+      });
+  },
+  setFavoriteStatus: (id, isFavorite) => (dispatch, _, api) => {
+    const status = isFavorite ? 0 : 1;
+
+    return api.post(`/favorite/${id}/${status}`)
+      .then(() => {
+        dispatch(Operation.getMovies());
+        dispatch(Operation.getPromoMovie());
+        dispatch(Operation.getFavoriteMovies());
+      });
+  },
+  getFavoriteMovies: () => (dispatch, _, api) => {
+    return api.get(`/favorite`)
+      .then(({data}) => {
+        dispatch(ActionCreator.setFavoriteMovies(data.map(parseMovieData)));
       });
   },
 };

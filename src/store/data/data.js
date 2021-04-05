@@ -4,6 +4,7 @@ const initialState = {
   promoMovie: null,
   movies: [],
   reviews: [],
+  favoriteMovies: [],
 };
 
 export const reducer = (state = initialState, action) => {
@@ -19,6 +20,10 @@ export const reducer = (state = initialState, action) => {
     case ActionType.SET_REVIEWS:
       return Object.assign({}, state, {
         reviews: action.payload,
+      });
+    case ActionType.SET_FAVORITE_MOVIES:
+      return Object.assign({}, state, {
+        favoriteMovies: action.payload,
       });
   }
 

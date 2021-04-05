@@ -8,19 +8,18 @@ const withReviewForm = (Component) => {
     constructor(props) {
       super(props);
 
-      const {id} = this.props.movie;
-
       this.state = {
-        id,
+        movie: null,
         comment: ``,
         rating: 0,
         isDisabled: true,
       };
 
-      this._handleSubmitSuccess = this._handleSubmitSuccess.bind(this);
-      this._handleFormSubmit = this._handleFormSubmit.bind(this);
-      this._handleRatingChange = this._handleRatingChange.bind(this);
-      this._handleCommentChange = this._handleCommentChange.bind(this);
+      this.setMovie = this._setMovie.bind(this);
+      this.handleSubmitSuccess = this._handleSubmitSuccess.bind(this);
+      this.handleFormSubmit = this._handleFormSubmit.bind(this);
+      this.handleRatingChange = this._handleRatingChange.bind(this);
+      this.handleCommentChange = this._handleCommentChange.bind(this);
     }
 
     componentDidUpdate(_, prevState) {
@@ -29,6 +28,10 @@ const withReviewForm = (Component) => {
           isDisabled: state.comment.length < ReviewForm.MIN_REVIEW_LENGTH || state.rating === 0,
         }));
       }
+    }
+
+    _setMovie(movie) {
+      this.setState({movie});
     }
 
     _handleSubmitSuccess() {
@@ -42,14 +45,14 @@ const withReviewForm = (Component) => {
       evt.preventDefault();
 
       const {postReview} = this.props;
-      const {comment, rating, id} = this.state;
+      const {movie: {id}, comment, rating} = this.state;
 
-      postReview(id, {rating, comment}, this._handleSubmitSuccess);
+      postReview(id, {rating, comment}, this.handleSubmitSuccess);
     }
 
     _handleRatingChange(evt) {
       this.setState({
-        rating: Number(evt.target.value),
+        rating: +evt.target.value,
       });
     }
 
@@ -60,19 +63,21 @@ const withReviewForm = (Component) => {
     }
 
     render() {
-      const {isDisabled, comment, rating} = this.state;
+      const {movie, isDisabled, comment, rating} = this.state;
       const {isLoading} = this.props;
 
       return (
         <Component
           {...this.props}
+          setMovie={this.setMovie}
+          movie={movie}
           comment={comment}
           rating={rating}
           isDisabled={isDisabled}
           isLoading={isLoading}
-          onSubmit={this._handleFormSubmit}
-          onRatingChange={this._handleRatingChange}
-          onCommentChange={this._handleCommentChange}
+          onSubmit={this.handleFormSubmit}
+          onRatingChange={this.handleRatingChange}
+          onCommentChange={this.handleCommentChange}
         />
       );
     }

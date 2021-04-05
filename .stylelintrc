@@ -1,3 +1,8 @@
 {
-  "extends": "stylelint-config-htmlacademy"
+  "extends": "stylelint-config-htmlacademy",
+  "rules":
+    {
+      "value-keyword-case":
+        ["lower", { "ignoreKeywords": ["backgroundColor"] }],
+    },
 }

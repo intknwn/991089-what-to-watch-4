@@ -17,20 +17,18 @@ const movie = {
   cast: [`Eddie Redmayne`, `Katherine Waterston`, `Dan Fogler`],
 };
 
-const MockComponent = () => <video />;
-
 it(`MovieCard component should render movie card`, () => {
   const tree = renderer.create(
       <MovieCard
+        videoRef={{}}
         movie={movie}
-        onHover={() => {}}
-        onClick={() => {}}
         isPlaying={false}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
-      >
-        <MockComponent />
-      </MovieCard>
+        playerConfig={{
+          loop: true,
+        }}
+      />
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

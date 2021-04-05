@@ -1,7 +1,6 @@
 
 import React from 'react';
 import renderer from 'react-test-renderer';
-import AddReviewPage from '../../components/add-review-page/add-review-page.jsx';
 import withReviewForm from './with-review-form.jsx';
 
 const movie = {
@@ -21,7 +20,9 @@ const movie = {
   runtime: 132,
 };
 
-const AddReviewPageWrapped = withReviewForm(AddReviewPage);
+const MockComponent = () => <div />;
+
+const AddReviewPageWrapped = withReviewForm(MockComponent);
 
 it(`withVideoPlayer component should render correctly`, () => {
   const tree = renderer.create((

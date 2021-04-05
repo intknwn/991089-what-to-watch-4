@@ -45,6 +45,7 @@ it(`Reducer without arguments should return initial state`, () => {
     promoMovie: null,
     movies: [],
     reviews: [],
+    favoriteMovies: [],
   });
 });
 
@@ -53,6 +54,7 @@ it(`Reducer should set movies`, () => {
     promoMovie: null,
     movies: [],
     reviews: [],
+    favoriteMovies: [],
   }, {
     type: ActionType.SET_MOVIES,
     payload: movies
@@ -60,6 +62,7 @@ it(`Reducer should set movies`, () => {
     promoMovie: null,
     movies,
     reviews: [],
+    favoriteMovies: [],
   });
 });
 
@@ -68,6 +71,7 @@ it(`Reducer should change promo movie`, () => {
     promoMovie: null,
     movies: [],
     reviews: [],
+    favoriteMovies: [],
   }, {
     type: ActionType.SET_PROMO_MOVIE,
     payload: movies[0],
@@ -75,6 +79,7 @@ it(`Reducer should change promo movie`, () => {
     promoMovie: movies[0],
     movies: [],
     reviews: [],
+    favoriteMovies: [],
   });
 });
 
@@ -83,6 +88,7 @@ it(`Reducer should change set reviews`, () => {
     promoMovie: null,
     movies: [],
     reviews: [],
+    favoriteMovies: [],
   }, {
     type: ActionType.SET_REVIEWS,
     payload: reviews,
@@ -90,6 +96,24 @@ it(`Reducer should change set reviews`, () => {
     promoMovie: null,
     movies: [],
     reviews,
+    favoriteMovies: [],
+  });
+});
+
+it(`Reducer should change favorite movies`, () => {
+  expect(reducer({
+    promoMovie: null,
+    movies: [],
+    reviews: [],
+    favoriteMovies: [],
+  }, {
+    type: ActionType.SET_FAVORITE_MOVIES,
+    payload: movies,
+  })).toEqual({
+    promoMovie: null,
+    movies: [],
+    reviews: [],
+    favoriteMovies: movies,
   });
 });
 
@@ -112,6 +136,13 @@ describe(`Action creators should work correctly`, () => {
     expect(ActionCreator.setReviews(reviews)).toEqual({
       type: ActionType.SET_REVIEWS,
       payload: reviews,
+    });
+  });
+
+  it(`setFavoriteMovies action creator returns correct action`, () => {
+    expect(ActionCreator.setFavoriteMovies(movies)).toEqual({
+      type: ActionType.SET_FAVORITE_MOVIES,
+      payload: movies,
     });
   });
 });
@@ -194,6 +225,24 @@ describe(`Operations work correctly`, () => {
         expect(dispatch).toHaveBeenNthCalledWith(3, {
           type: ActionType.SET_LOADING_STATUS,
           payload: false,
+        });
+      });
+  });
+
+  it(`Should make a correct GET request to /favorite`, () => {
+    const dispatch = jest.fn();
+    const favoriteMoviesLoader = Operation.getFavoriteMovies();
+
+    apiMock
+    .onGet(`/favorite`)
+    .reply(200, movies);
+
+    favoriteMoviesLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.SET_FAVORITE_MOVIES,
+          payload: parsedMoviesData,
         });
       });
   });
