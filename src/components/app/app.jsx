@@ -1,62 +1,61 @@
 import React from 'react';
-import {string, func, bool, arrayOf} from 'prop-types';
-import {Router, Switch, Route} from 'react-router-dom';
+import {arrayOf, bool, func, string} from 'prop-types';
+import {Redirect, Route, Router, Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
-import Main from '../main/main.jsx';
-import MoviePage from '../movie-page/movie-page.jsx';
-import VideoPlayer from '../video-player/video-player.jsx';
-import SignIn from '../sign-in/sign-in.jsx';
-import AddReviewPage from '../add-review-page/add-review-page.jsx';
-import withVideoPlayer from '../../hocs/with-video-player/with-video-player.jsx';
-import withReviewForm from '../../hocs/with-review-form/with-review-form.jsx';
-import {MOVIE_PAGE_PLAYER_CONFIG, AuthStatus, AppRoute} from '../../const.js';
-import {movieType, reviewType} from '../../types/types.js';
+import {AddReviewPage, Main, MoviePage, MyList, PrivateRoute, SignIn, VideoPlayer} from '../components.jsx';
+import {withReviewForm, withSignInForm, withVideoPlayer} from '../../hocs/hocs.js';
+import {movieType, reviewType, userType} from '../../types/types.js';
 import {Operation} from '../../store/action.js';
-import {getMovies, getReviews, getPromoMovie, getMovieGenres} from '../../store/data/data-selectors.js';
-import {getLoadingStatus} from '../../store/app/app-selectors.js';
-import {getAuthStatus} from '../../store/user/user-selectors.js';
+import {getAuthStatus, getFavoriteMovies, getLoadingStatus, getMovieGenres, getPromoMovie, getReviews, getUser, getMovies} from '../../store/selectors.js';
+import {AppRoute, AuthStatus, MOVIE_PAGE_PLAYER_CONFIG} from '../../const.js';
 import history from '../../history.js';
 
 const VideoPlayerWrapped = withVideoPlayer(VideoPlayer);
 const AddReviewPageWrapped = withReviewForm(AddReviewPage);
+const SignInWrapped = withSignInForm(SignIn);
 class App extends React.PureComponent {
 
   componentDidMount() {
-    this.props.checkAuth();
+    const {isAuthorized, getMyListMovies} = this.props;
+
+    if (isAuthorized) {
+      getMyListMovies();
+    }
   }
 
   render() {
     const {
-      movies,
-      reviews,
-      promoMovie,
+      favoriteMovies,
       genres,
+      getMovieReviews,
       isAuthorized,
+      isLoading,
+      movies,
       onSubmit,
       postReview,
-      getMovieReviews,
-      isLoading,
+      promoMovie,
+      reviews,
       setFavoriteStatus,
+      user,
     } = this.props;
 
     return (
       <Router history={history}>
         <Switch>
-          <Route exact path={AppRoute.MAIN}>
-            <Main
-              promoMovie={promoMovie}
-              movies={movies}
-              genres={genres}
-              isAuthorized={isAuthorized}
-              setFavoriteStatus={setFavoriteStatus}
-            />
-          </Route>
+          <Route exact path={AppRoute.SIGN_IN}
+            render={
+              (routeProps) =>
+                isAuthorized ?
+                  <Redirect to={AppRoute.MAIN}/> :
+                  <SignInWrapped
+                    {...routeProps}
+                    isAuthorized={isAuthorized}
+                    onSubmit={onSubmit}
+                    user={user}
+                  />
+            }/>
 
-          <Route exact path={AppRoute.SIGN_IN}>
-            <SignIn onSubmit={onSubmit}/>
-          </Route>
-
-          <Route exact path={`${AppRoute.MOVIE}/:id${AppRoute.REVIEW}`}
+          <PrivateRoute exact path={`${AppRoute.MOVIE}/:id${AppRoute.REVIEW}`} isAuthorized={isAuthorized}
             render={
               (routeProps) =>
                 <AddReviewPageWrapped
@@ -64,6 +63,8 @@ class App extends React.PureComponent {
                   movies={movies}
                   postReview={postReview}
                   isLoading={isLoading}
+                  isAuthorized={isAuthorized}
+                  user={user}
                 />
             }/>
 
@@ -84,8 +85,32 @@ class App extends React.PureComponent {
                 reviews={reviews}
                 getMovieReviews={getMovieReviews}
                 setFavoriteStatus={setFavoriteStatus}
+                isAuthorized={isAuthorized}
+                user={user}
               />
             }/>
+
+          <PrivateRoute exact path={AppRoute.MY_LIST} isAuthorized={isAuthorized}
+            render={
+              (routeProps) =>
+                <MyList
+                  {...routeProps}
+                  movies={favoriteMovies}
+                  isAuthorized={isAuthorized}
+                  user={user}
+                />
+            }/>
+
+          <Route path="">
+            <Main
+              promoMovie={promoMovie}
+              movies={movies}
+              genres={genres}
+              isAuthorized={isAuthorized}
+              user={user}
+              setFavoriteStatus={setFavoriteStatus}
+            />
+          </Route>
         </Switch>
       </Router>
     );
@@ -93,40 +118,44 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
-  movies: arrayOf(movieType).isRequired,
-  reviews: arrayOf(reviewType).isRequired,
-  promoMovie: movieType,
+  favoriteMovies: arrayOf(movieType).isRequired,
   genres: arrayOf(string).isRequired,
+  getMovieReviews: func.isRequired,
+  getMyListMovies: func.isRequired,
   isAuthorized: bool.isRequired,
+  isLoading: bool.isRequired,
+  movies: arrayOf(movieType).isRequired,
   onSubmit: func.isRequired,
   postReview: func.isRequired,
-  getMovieReviews: func.isRequired,
-  isLoading: bool.isRequired,
-  checkAuth: func.isRequired,
+  promoMovie: movieType,
+  reviews: arrayOf(reviewType).isRequired,
   setFavoriteStatus: func.isRequired,
+  user: userType,
 };
 
 const mapStateToProps = (state) => ({
-  movies: getMovies(state),
-  reviews: getReviews(state),
-  promoMovie: getPromoMovie(state),
+  favoriteMovies: getFavoriteMovies(state),
   genres: getMovieGenres(state),
   isAuthorized: getAuthStatus(state) === AuthStatus.AUTH,
   isLoading: getLoadingStatus(state),
+  movies: getMovies(state),
+  promoMovie: getPromoMovie(state),
+  reviews: getReviews(state),
+  user: getUser(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit(userData) {
-    dispatch(Operation.signIn(userData));
-  },
   getMovieReviews(id) {
     dispatch(Operation.getReviews(id));
   },
+  getMyListMovies() {
+    dispatch(Operation.getFavoriteMovies());
+  },
+  onSubmit(userData, onSuccess, onError) {
+    dispatch(Operation.signIn(userData, onSuccess, onError));
+  },
   postReview(id, review, onSuccess) {
     dispatch(Operation.postReview(id, review, onSuccess));
-  },
-  checkAuth() {
-    dispatch(Operation.getAuthStatus());
   },
   setFavoriteStatus(id, isFavorite) {
     dispatch(Operation.setFavoriteStatus(id, isFavorite));

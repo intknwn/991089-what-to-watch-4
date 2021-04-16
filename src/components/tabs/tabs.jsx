@@ -1,10 +1,8 @@
 import React from 'react';
-import {string, func, arrayOf} from 'prop-types';
-import MovieOverview from '../movie-overview/movie-overview.jsx';
-import MovieDetails from '../movie-details/movie-details.jsx';
-import MovieReviews from '../movie-reviews/movie-reviews.jsx';
-import {Tab} from '../../const.js';
+import {arrayOf, func, string} from 'prop-types';
+import {MovieDetails, MovieOverview, MovieReviews} from '../components.jsx';
 import {movieType, reviewType} from '../../types/types.js';
+import {Tab} from '../../const.js';
 
 const getInfoByTab = (tabName, movie, reviews) => {
   switch (tabName) {

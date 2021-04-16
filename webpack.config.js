@@ -37,7 +37,4 @@ module.exports = {
       'scheduler/tracing': `scheduler/tracing-profiling`,
     }
   },
-  optimization: {
-    minimize: false,
-  },
 };

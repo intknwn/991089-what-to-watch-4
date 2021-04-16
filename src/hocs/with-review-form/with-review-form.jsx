@@ -2,6 +2,7 @@ import React from 'react';
 import {bool, func} from 'prop-types';
 import {movieType} from '../../types/types.js';
 import {ReviewForm} from '../../const.js';
+import history from '../../history.js';
 
 const withReviewForm = (Component) => {
   class WithReviewForm extends React.PureComponent {
@@ -9,10 +10,10 @@ const withReviewForm = (Component) => {
       super(props);
 
       this.state = {
-        movie: null,
         comment: ``,
-        rating: 0,
         isDisabled: true,
+        movie: null,
+        rating: 0,
       };
 
       this.setMovie = this._setMovie.bind(this);
@@ -39,6 +40,8 @@ const withReviewForm = (Component) => {
         comment: ``,
         rating: 0,
       });
+
+      history.goBack();
     }
 
     _handleFormSubmit(evt) {
@@ -69,24 +72,24 @@ const withReviewForm = (Component) => {
       return (
         <Component
           {...this.props}
-          setMovie={this.setMovie}
-          movie={movie}
           comment={comment}
-          rating={rating}
           isDisabled={isDisabled}
           isLoading={isLoading}
-          onSubmit={this.handleFormSubmit}
-          onRatingChange={this.handleRatingChange}
+          movie={movie}
           onCommentChange={this.handleCommentChange}
+          onRatingChange={this.handleRatingChange}
+          onSubmit={this.handleFormSubmit}
+          rating={rating}
+          setMovie={this.setMovie}
         />
       );
     }
   }
 
   WithReviewForm.propTypes = {
+    isLoading: bool.isRequired,
     movie: movieType.isRequired,
     postReview: func.isRequired,
-    isLoading: bool.isRequired,
   };
 
   return WithReviewForm;

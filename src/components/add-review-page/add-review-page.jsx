@@ -1,14 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {arrayOf, bool, func, number, string} from 'prop-types';
-import {movieType, matchType, locationType} from '../../types/types.js';
-import {AppRoute, ReviewForm} from '../../const.js';
-
+import {Header} from '../components.jsx';
+import {locationType, matchType, movieType, userType} from '../../types/types.js';
+import {AppRoute, ClassName, ReviewForm} from '../../const.js';
 
 class AddReviewPage extends React.PureComponent {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     const {match} = this.props;
@@ -42,6 +39,10 @@ class AddReviewPage extends React.PureComponent {
 
   renderAddReviewPage() {
     const {
+      comment,
+      isAuthorized,
+      isDisabled,
+      isLoading,
       movie: {
         id,
         name,
@@ -49,13 +50,11 @@ class AddReviewPage extends React.PureComponent {
         backgroundImg,
         backgroundColor,
       },
-      comment,
-      rating,
-      onRatingChange,
       onCommentChange,
-      isDisabled,
-      isLoading,
-      onSubmit
+      onRatingChange,
+      onSubmit,
+      rating,
+      user
     } = this.props;
 
     return (
@@ -65,14 +64,11 @@ class AddReviewPage extends React.PureComponent {
             <img src={backgroundImg} alt={name} />
           </div>
           <h1 className="visually-hidden">WTW</h1>
-          <header className="page-header">
-            <div className="logo">
-              <Link to="/" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </Link>
-            </div>
+          <Header
+            className={ClassName.MOVIE_PAGE_HEADER}
+            isAuthorized={isAuthorized}
+            user={user}
+          >
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
@@ -83,12 +79,7 @@ class AddReviewPage extends React.PureComponent {
                 </li>
               </ul>
             </nav>
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="/img/avatar.jpg" alt="User avatar" width={63} height={63} />
-              </div>
-            </div>
-          </header>
+          </Header>
           <div className="movie-card__poster movie-card__poster--small">
             <img src={posterImg} alt={`${name} poster`} width={218} height={327} />
           </div>
@@ -144,18 +135,20 @@ class AddReviewPage extends React.PureComponent {
 }
 
 AddReviewPage.propTypes = {
-  movie: movieType,
-  movies: arrayOf(movieType).isRequired,
-  setMovie: func.isRequired,
   comment: string.isRequired,
-  rating: number.isRequired,
-  onRatingChange: func.isRequired,
-  onCommentChange: func.isRequired,
+  isAuthorized: bool.isRequired,
   isDisabled: bool.isRequired,
   isLoading: bool.isRequired,
-  onSubmit: func.isRequired,
-  match: matchType.isRequired,
   location: locationType.isRequired,
+  match: matchType.isRequired,
+  movie: movieType,
+  movies: arrayOf(movieType).isRequired,
+  onCommentChange: func.isRequired,
+  onRatingChange: func.isRequired,
+  onSubmit: func.isRequired,
+  rating: number.isRequired,
+  setMovie: func.isRequired,
+  user: userType,
 };
 
 export default AddReviewPage;

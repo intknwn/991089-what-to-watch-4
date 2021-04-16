@@ -51,16 +51,25 @@ const reviews = [{
   date: `2015-11-18`,
 }];
 
+const user = {
+  id: 1,
+  email: `Oliver.conner@gmail.com`,
+  name: `Oliver.conner`,
+  avatarSrc: `/img/1.png`,
+};
+
 it(`MoviePage component should render page with movie details`, () => {
   const tree = renderer.create(
       <BrowserRouter>
         <MoviePage
+          getMovieReviews={() => {}}
+          isAuthorized={true}
+          location={{}}
+          match={{params: {id: `1`}}}
           movies={movies}
           reviews={reviews}
-          match={{params: {id: `1`}}}
-          location={{}}
-          getMovieReviews={() => {}}
           setFavoriteStatus={() => {}}
+          user={user}
         />
       </BrowserRouter>
   ).toJSON();

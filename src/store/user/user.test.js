@@ -5,10 +5,17 @@ import {ActionType, ActionCreator, Operation} from '../action.js';
 import {AuthStatus} from '../../const.js';
 
 const user = {
+  "id": 1,
+  "email": `Oliver.conner@gmail.com`,
+  "name": `Oliver.conner`,
+  "avatar_url": `/img/1.png`,
+};
+
+const parsedUserData = {
   id: 1,
   email: `Oliver.conner@gmail.com`,
   name: `Oliver.conner`,
-  avatar: `img/1.png`,
+  avatarSrc: `/img/1.png`,
 };
 
 const api = createAPI(() => {});
@@ -89,26 +96,9 @@ describe(`Operations work correctly`, () => {
         });
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.SET_USER,
-          payload: user,
-        });
-      });
-  });
-
-  it(`Should make a correct POST request to /login`, () => {
-    const dispatch = jest.fn();
-    const promoMovieLoader = Operation.getPromoMovie();
-
-    promoMovieLoader(dispatch, () => {}, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.SET_USER,
-          payload: user,
-        });
-        expect(dispatch).toHaveBeenNthCalledWith(2, {
-          type: ActionType.SET_AUTH_STATUS,
-          payload: AuthStatus.AUTH,
+          payload: parsedUserData,
         });
       });
   });
 });
+

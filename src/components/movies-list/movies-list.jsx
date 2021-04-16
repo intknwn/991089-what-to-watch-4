@@ -1,17 +1,19 @@
 import React from 'react';
 import {arrayOf, func, number} from 'prop-types';
-import MovieCard from '../movie-card/movie-card.jsx';
-import ShowMoreButton from '../show-more-button/show-more-button.jsx';
-import withVideoPlayer from '../../hocs/with-video-player/with-video-player.jsx';
+import {ShowMoreButton, MovieCard} from '../components.jsx';
+import {withVideoPlayer} from '../../hocs/hocs.js';
 import {movieType} from '../../types/types.js';
 import {MOVIES_LIST_PLAYER_CONFIG} from '../../const.js';
 
-
 const MovieCardWrapped = withVideoPlayer(MovieCard);
 
-export const MoviesList = ({movies, itemsToShow, itemsToShowChangeHandler}) => {
+export const MoviesList = ({
+  itemsToShow,
+  itemsToShowChangeHandler,
+  movies,
+}) => {
   const moviesToShow = itemsToShow ? movies.slice(0, itemsToShow) : movies;
-  const isShowMore = movies.length > itemsToShow;
+  const isShowMore = itemsToShow && movies.length > itemsToShow;
 
   return (
     <React.Fragment>
@@ -24,15 +26,15 @@ export const MoviesList = ({movies, itemsToShow, itemsToShowChangeHandler}) => {
           />
         )}
       </div>
-      {isShowMore && <ShowMoreButton onClick={itemsToShowChangeHandler}/>}
+      {isShowMore && <ShowMoreButton onClick={itemsToShowChangeHandler && itemsToShowChangeHandler}/>}
     </React.Fragment>
   );
 };
 
 MoviesList.propTypes = {
-  movies: arrayOf(movieType).isRequired,
   itemsToShow: number,
   itemsToShowChangeHandler: func,
+  movies: arrayOf(movieType).isRequired,
 };
 
 export default MoviesList;

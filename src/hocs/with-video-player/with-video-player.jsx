@@ -10,10 +10,10 @@ const withVideoPlayer = (Component) => {
       this._videoRef = React.createRef();
 
       this.state = {
-        video: null,
-        isPlaying: false,
         currentTime: 0,
         duration: 0,
+        isPlaying: false,
+        video: null,
       };
 
       this.onEnterHandler = this._onEnterHandler.bind(this);
@@ -83,23 +83,29 @@ const withVideoPlayer = (Component) => {
     }
 
     render() {
-      const {video, isPlaying, duration, currentTime} = this.state;
+      const {
+        video,
+        isPlaying,
+        duration,
+        currentTime
+      } = this.state;
+
       const timeLeft = formatTimeLeft(duration - currentTime);
       const progress = getProgress(duration, currentTime);
 
       return (
         <Component
           {...this.props}
-          videoRef={this._videoRef}
-          setVideo={this.setVideo}
-          video={video}
-          timeLeft={timeLeft}
-          progress={progress}
           isPlaying={isPlaying}
+          onFullScreenClick={this.onFullScreenClickHandler}
           onMouseEnter={this.onEnterHandler}
           onMouseLeave={this.onLeaveHandler}
           onPlayClick={this.onPlayClickHandler}
-          onFullScreenClick={this.onFullScreenClickHandler}
+          progress={progress}
+          setVideo={this.setVideo}
+          timeLeft={timeLeft}
+          video={video}
+          videoRef={this._videoRef}
         />
       );
     }

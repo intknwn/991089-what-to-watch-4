@@ -26,6 +26,7 @@ exports[`App component should render application 1`] = `
       >
         <a
           className="logo__link"
+          href=""
         >
           <span
             className="logo__letter logo__letter--1"
@@ -55,9 +56,9 @@ exports[`App component should render application 1`] = `
             onClick={[Function]}
           >
             <img
-              alt="User avatar"
+              alt="Oliver.conner@gmail.com"
               height={63}
-              src="img/avatar.jpg"
+              src="https://4.react.pages.academy/img/1.png"
               width={63}
             />
           </a>
@@ -273,7 +274,8 @@ exports[`App component should render application 1`] = `
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/movies/1"
+              onClick={[Function]}
             >
               Fantastic Beasts: The Crimes of Grindelwald
             </a>
@@ -300,7 +302,8 @@ exports[`App component should render application 1`] = `
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/movies/2"
+              onClick={[Function]}
             >
               Bohemian Rhapsody
             </a>
@@ -327,7 +330,8 @@ exports[`App component should render application 1`] = `
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/movies/3"
+              onClick={[Function]}
             >
               We need to talk about Kevin
             </a>
@@ -354,7 +358,8 @@ exports[`App component should render application 1`] = `
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/movies/4"
+              onClick={[Function]}
             >
               What We Do in the Shadows
             </a>
@@ -370,6 +375,8 @@ exports[`App component should render application 1`] = `
       >
         <a
           className="logo__link logo__link--light"
+          href="/"
+          onClick={[Function]}
         >
           <span
             className="logo__letter logo__letter--1"

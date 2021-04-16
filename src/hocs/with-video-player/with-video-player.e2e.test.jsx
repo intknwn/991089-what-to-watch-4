@@ -13,8 +13,8 @@ it(`Component should have a pause state`, () => {
   const wrapper = shallow(
       <MockComponentWrapped
         movie={movies[0]}
-        playerConfig={{}}
         onExitClick={() => {}}
+        playerConfig={{}}
       />
   );
 
@@ -25,8 +25,8 @@ it(`Component should have a playing state`, () => {
   const wrapper = mount(
       <MockComponentWrapped
         movie={movies[0]}
-        playerConfig={{}}
         onExitClick={() => {}}
+        playerConfig={{}}
       />
   );
 

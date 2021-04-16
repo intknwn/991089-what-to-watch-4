@@ -32,11 +32,6 @@ exports[`SignIn component should render correctly 1`] = `
         </span>
       </a>
     </div>
-    <h1
-      className="page-title user-page__title"
-    >
-      Sign in
-    </h1>
   </header>
   <div
     className="sign-in user-page__content"
@@ -56,6 +51,7 @@ exports[`SignIn component should render correctly 1`] = `
             className="sign-in__input"
             id="user-email"
             name="user-email"
+            onChange={[Function]}
             placeholder="Email address"
             type="email"
           />
@@ -73,6 +69,7 @@ exports[`SignIn component should render correctly 1`] = `
             className="sign-in__input"
             id="user-password"
             name="user-password"
+            onChange={[Function]}
             placeholder="Password"
             type="password"
           />
@@ -104,7 +101,8 @@ exports[`SignIn component should render correctly 1`] = `
     >
       <a
         className="logo__link logo__link--light"
-        href="main.html"
+        href="/"
+        onClick={[Function]}
       >
         <span
           className="logo__letter logo__letter--1"

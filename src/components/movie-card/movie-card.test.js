@@ -1,8 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {BrowserRouter} from 'react-router-dom';
 import MovieCard from './movie-card.jsx';
 
 const movie = {
+  id: 1,
   name: `Fantastic Beasts: The Crimes of Grindelwald`,
   previewImg: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
   backgroundImg: `https://via.placeholder.com/1300x552`,
@@ -19,16 +21,18 @@ const movie = {
 
 it(`MovieCard component should render movie card`, () => {
   const tree = renderer.create(
-      <MovieCard
-        videoRef={{}}
-        movie={movie}
-        isPlaying={false}
-        onMouseEnter={() => {}}
-        onMouseLeave={() => {}}
-        playerConfig={{
-          loop: true,
-        }}
-      />
+      <BrowserRouter>
+        <MovieCard
+          isPlaying={false}
+          movie={movie}
+          onMouseEnter={() => {}}
+          onMouseLeave={() => {}}
+          playerConfig={{
+            loop: true,
+          }}
+          videoRef={{}}
+        />
+      </BrowserRouter>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

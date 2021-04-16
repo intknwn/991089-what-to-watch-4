@@ -18,3 +18,10 @@ export const parseMovieData = (movie) => ({
   isFavorite: movie.is_favorite,
 });
 
+export const parseUserData = (user) => ({
+  id: user.id,
+  email: user.email,
+  name: user.name,
+  avatarSrc: user.avatar_url,
+});
+

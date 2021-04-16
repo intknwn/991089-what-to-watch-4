@@ -102,23 +102,32 @@ const reviews = [{
 
 const genres = [`All genres`, `Comedy`, `Adventure`, `Crime`, `Drama`, `Action`, `Thriller`, `Fantasy`];
 
+const user = {
+  id: 1,
+  email: `Oliver.conner@gmail.com`,
+  name: `Oliver.conner`,
+  avatarSrc: `/img/1.png`,
+};
+
 it(`App component should render application`, () => {
   const tree = renderer
     .create(
         <App
-          movies={movies}
-          reviews={reviews}
-          promoMovie={promoMovie}
+          checkAuth={() => {}}
+          favoriteMovies={[]}
           genres={genres}
+          getMovieReviews={() => {}}
+          getMyListMovies={() => {}}
           isAuthorized={true}
+          isLoading={false}
+          movies={movies}
           onSubmit={() => {}}
           postReview={() => {}}
-          getMovieReviews={() => {}}
-          isLoading={false}
-          checkAuth={() => {}}
+          promoMovie={promoMovie}
+          reviews={reviews}
           setFavoriteStatus={() => {}}
+          user={user}
         />
-
     )
     .toJSON();
 

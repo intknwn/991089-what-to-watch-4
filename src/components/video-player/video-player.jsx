@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {func, bool, string, number, arrayOf} from 'prop-types';
-import {refType, movieType, videoType, matchType, locationType} from '../../types/types.js';
-import {getMovies} from '../../store/data/data-selectors.js';
+import {arrayOf, bool, func, number, string} from 'prop-types';
+import {locationType, matchType, movieType, refType, videoType} from '../../types/types.js';
+import {getMovies} from '../../store/selectors.js';
 import {AppRoute} from '../../const.js';
 import history from '../../history.js';
 
@@ -44,14 +44,14 @@ class VideoPlayer extends React.PureComponent {
 
   render() {
     const {
-      videoRef,
-      video,
-      timeLeft,
-      progress,
       isPlaying,
-      onPlayClick,
       onFullScreenClick,
+      onPlayClick,
       playerConfig,
+      progress,
+      timeLeft,
+      video,
+      videoRef,
     } = this.props;
 
     const name = video ? video.name : ``;
@@ -105,18 +105,18 @@ class VideoPlayer extends React.PureComponent {
 }
 
 VideoPlayer.propTypes = {
-  videoRef: refType.isRequired,
-  setVideo: func.isRequired,
-  video: movieType,
-  movies: arrayOf(movieType).isRequired,
-  timeLeft: string.isRequired,
-  progress: number.isRequired,
   isPlaying: bool.isRequired,
-  onPlayClick: func.isRequired,
-  onFullScreenClick: func.isRequired,
-  playerConfig: videoType.isRequired,
-  match: matchType.isRequired,
   location: locationType.isRequired,
+  match: matchType.isRequired,
+  movies: arrayOf(movieType).isRequired,
+  onFullScreenClick: func.isRequired,
+  onPlayClick: func.isRequired,
+  playerConfig: videoType.isRequired,
+  progress: number.isRequired,
+  setVideo: func.isRequired,
+  timeLeft: string.isRequired,
+  video: movieType,
+  videoRef: refType.isRequired,
 };
 
 const mapStateToProps = (state) => ({

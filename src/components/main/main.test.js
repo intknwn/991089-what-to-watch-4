@@ -82,17 +82,25 @@ const movies = [{
 
 const genres = [`All genres`, `Comedy`, `Adventure`, `Crime`, `Drama`, `Action`, `Thriller`, `Fantasy`];
 
+const user = {
+  id: 1,
+  email: `Oliver.conner@gmail.com`,
+  name: `Oliver.conner`,
+  avatarSrc: `/img/1.png`,
+};
+
 it(`Main component should render main screen`, () => {
 
   const tree = renderer
       .create(
           <BrowserRouter>
             <Main
-              promoMovie={promoMovie}
-              movies={movies}
               genres={genres}
               isAuthorized={true}
+              movies={movies}
+              promoMovie={promoMovie}
               setFavoriteStatus={() => {}}
+              user={user}
             />
           </BrowserRouter>
       )

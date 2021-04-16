@@ -1,7 +1,6 @@
 import React from 'react';
-import {func, number} from 'prop-types';
-
-const MIN_ITEMS_TO_SHOW = 1;
+import {func, bool} from 'prop-types';
+import {MOVIES_PER_PAGE} from '../../const.js';
 
 const withShowMore = (Component) => {
   class WithShowMore extends React.PureComponent {
@@ -9,11 +8,17 @@ const withShowMore = (Component) => {
       super(props);
 
       this.state = {
-        itemsToShow: this.props.itemsToShow || MIN_ITEMS_TO_SHOW,
+        itemsToShow: MOVIES_PER_PAGE,
       };
 
       this.cb = this.props.cb || ((itemsToShow) => itemsToShow);
       this.itemsToShowChangeHandler = this._itemsToShowChangeHandler.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+      if (prevProps.isDefault !== this.props.isDefault) {
+        this.setState({itemsToShow: MOVIES_PER_PAGE});
+      }
     }
 
     _itemsToShowChangeHandler() {
@@ -30,8 +35,8 @@ const withShowMore = (Component) => {
   }
 
   WithShowMore.propTypes = {
-    itemsToShow: number,
     cb: func,
+    isDefault: bool,
   };
 
   return WithShowMore;

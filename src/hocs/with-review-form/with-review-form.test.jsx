@@ -1,4 +1,3 @@
-
 import React from 'react';
 import renderer from 'react-test-renderer';
 import withReviewForm from './with-review-form.jsx';
@@ -27,9 +26,9 @@ const AddReviewPageWrapped = withReviewForm(MockComponent);
 it(`withVideoPlayer component should render correctly`, () => {
   const tree = renderer.create((
     <AddReviewPageWrapped
+      isLoading={false}
       movie={movie}
       postReview={() => {}}
-      isLoading={false}
     />
   )).toJSON();
 

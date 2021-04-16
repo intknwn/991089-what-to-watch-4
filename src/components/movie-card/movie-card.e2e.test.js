@@ -27,15 +27,15 @@ it(`Hover on movie card should trigger callback with active movie as an argument
 
   const movieCard = shallow(
       <MovieCard
-        videoRef={{}}
+        isPlaying={false}
         movie={movie}
         onClick={() => {}}
-        isPlaying={false}
         onMouseEnter={movieCardHoverHandler}
         onMouseLeave={() => {}}
         playerConfig={{
           loop: true,
         }}
+        videoRef={{}}
       />
   );
 

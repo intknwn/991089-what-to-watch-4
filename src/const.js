@@ -1,3 +1,5 @@
+export const STATIC_RESOURSES_URL = `https://4.react.pages.academy`;
+
 export const MAX_GENRES_COUNTER = 9;
 export const MAX_MORE_LIKE_THIS_MOVIES_COUNTER = 4;
 export const MOVIES_PER_PAGE = 8;
@@ -49,4 +51,11 @@ export const AppRoute = {
   REVIEW: `/review`,
   PLAYER: `/player`,
   MOVIE: `/movies`,
+};
+
+export const ClassName = {
+  MOVIE_PAGE_HEADER: `page-header movie-card__head`,
+  USER_PAGE_HEADER: `page-header user-page__head`,
+  LOGO_LINK: `logo__link`,
+  LOGO_LINK_LIGHT: `logo__link logo__link--light`,
 };

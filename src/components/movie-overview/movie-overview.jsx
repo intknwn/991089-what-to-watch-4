@@ -3,7 +3,13 @@ import {convertRatingToScore} from '../../utils/rating.js';
 import {movieType} from '../../types/types.js';
 
 const MovieOverview = ({movie}) => {
-  const {rating, score, description, director, cast} = movie;
+  const {
+    description,
+    director,
+    score,
+    cast,
+    rating
+  } = movie;
 
   return (
     <React.Fragment>

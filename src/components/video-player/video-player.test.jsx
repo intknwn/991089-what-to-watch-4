@@ -23,18 +23,18 @@ it(`VideoPlayer component should renders correctly`, () => {
 
   const tree = renderer.create(
       <VideoPlayer
-        videoRef={videoRef}
-        setVideo={() => {}}
-        video={video}
-        movies={[]}
-        timeLeft={`00:00:30`}
-        progress={30}
         isPlaying={true}
-        onPlayClick={() => {}}
-        onFullScreenClick={() => {}}
-        playerConfig={{loop: true}}
-        match={{params: {id: `1`}}}
         location={{}}
+        match={{params: {id: `1`}}}
+        movies={[]}
+        onFullScreenClick={() => {}}
+        onPlayClick={() => {}}
+        playerConfig={{loop: true}}
+        progress={30}
+        setVideo={() => {}}
+        timeLeft={`00:00:30`}
+        video={video}
+        videoRef={videoRef}
       />
   ).toJSON();
 

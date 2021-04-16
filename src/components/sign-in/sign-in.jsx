@@ -1,77 +1,62 @@
 import React from 'react';
-import {func} from 'prop-types';
-import {Link} from 'react-router-dom';
+import {bool, func, string} from 'prop-types';
+import {Footer, Header} from '../components.jsx';
+import {refType, userType} from '../../types/types.js';
+import {ClassName} from '../../const.js';
 
-class SignIn extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.emailRef = React.createRef();
-    this.passwordRef = React.createRef();
-
-    this.onSubmitHandler = this._onSubmitHandler.bind(this);
-  }
-
-  _onSubmitHandler(evt) {
-    evt.preventDefault();
-
-    const {onSubmit} = this.props;
-
-    onSubmit({
-      email: this.emailRef.current.value,
-      password: this.passwordRef.current.value,
-    });
-  }
-
-  render() {
-    return (
-      <div className="user-page">
-        <header className="page-header user-page__head">
-          <div className="logo">
-            <Link to="/" className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-          <h1 className="page-title user-page__title">Sign in</h1>
-        </header>
-        <div className="sign-in user-page__content">
-          <form action="#" className="sign-in__form" onSubmit={this.onSubmitHandler}>
-            <div className="sign-in__fields">
-              <div className="sign-in__field">
-                <input ref={this.emailRef} className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" />
-                <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
-              </div>
-              <div className="sign-in__field">
-                <input ref={this.passwordRef} className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" />
-                <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
-              </div>
+const SignIn = ({
+  emailRef,
+  error,
+  isAuthorized,
+  onChange,
+  onSubmit,
+  passwordRef,
+  user
+}) => {
+  return (
+    <div className="user-page">
+      <Header
+        className={ClassName.USER_PAGE_HEADER}
+        isAuthorized={isAuthorized}
+        isUserBlockDisabled={true}
+        user={user}
+      />
+      <div className="sign-in user-page__content">
+        <form action="#" className="sign-in__form" onSubmit={onSubmit}>
+          {
+            error &&
+            <div className="sign-in__message">
+              <p>{error}</p>
             </div>
-            <div className="sign-in__submit">
-              <button className="sign-in__btn" type="submit">Sign in</button>
+          }
+          <div className="sign-in__fields">
+            <div className="sign-in__field">
+              <input ref={emailRef} onChange={onChange} className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" />
+              <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
-          </form>
-        </div>
-        <footer className="page-footer">
-          <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            <div className="sign-in__field">
+              <input ref={passwordRef} onChange={onChange} className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" />
+              <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
+            </div>
           </div>
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
+          <div className="sign-in__submit">
+            <button className="sign-in__btn" type="submit">Sign in</button>
           </div>
-        </footer>
+        </form>
       </div>
-    );
-  }
-}
+      <Footer/>
+    </div>
+  );
+};
 
 SignIn.propTypes = {
+  emailRef: refType.isRequired,
+  error: string,
+  isAuthorized: bool.isRequired,
+  onChange: func.isRequired,
   onSubmit: func.isRequired,
+  passwordRef: refType.isRequired,
+  user: userType,
 };
 
 export default SignIn;

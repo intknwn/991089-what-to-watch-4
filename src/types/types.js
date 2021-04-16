@@ -49,3 +49,10 @@ export const refType = oneOfType([
   func,
   shape({current: instanceOf(Element)})
 ]);
+
+export const userType = shape({
+  id: number,
+  email: string,
+  name: string,
+  avatarSrc: string,
+});

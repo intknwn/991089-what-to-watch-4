@@ -1,8 +1,8 @@
 import React from 'react';
 import {arrayOf} from 'prop-types';
 import moment from 'moment';
-import {reviewType} from '../../types/types.js';
 import {groupReviews} from '../../utils/common.js';
+import {reviewType} from '../../types/types.js';
 
 const MovieReviews = ({reviews}) => {
   const groupedReviews = groupReviews(reviews);

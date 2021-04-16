@@ -3,7 +3,13 @@ import {formatRuntime} from '../../utils/common.js';
 import {movieType} from '../../types/types.js';
 
 const MovieDetails = ({movie}) => {
-  const {director, cast, runtime, genre, year} = movie;
+  const {
+    cast,
+    director,
+    genre,
+    runtime,
+    year
+  } = movie;
 
   return (
     <div className="movie-card__text movie-card__row">

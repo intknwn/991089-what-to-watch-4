@@ -1,4 +1,4 @@
-import {parseMovieData} from '../adapters/adapters.js';
+import {parseMovieData, parseUserData} from '../adapters/adapters.js';
 import {AuthStatus} from '../const.js';
 
 export const ActionType = {
@@ -59,17 +59,23 @@ export const Operation = {
     return api.get(`/login`)
       .then(({data}) => {
         dispatch(ActionCreator.setAuthStatus(AuthStatus.AUTH));
-        dispatch(ActionCreator.setUser(data));
-      });
+        dispatch(ActionCreator.setUser(parseUserData(data)));
+      })
+      .catch(() => {});
   },
-  signIn: ({email, password}) => (dispatch, _, api) => {
+  signIn: ({email, password}, onSuccess, onError) => (dispatch, _, api) => {
     return api.post(`/login`, {
       email,
       password,
     })
       .then(({data}) => {
-        dispatch(ActionCreator.setUser(data));
+        dispatch(ActionCreator.setUser(parseUserData(data)));
         dispatch(ActionCreator.setAuthStatus(AuthStatus.AUTH));
+
+        onSuccess();
+      })
+      .catch(({response}) => {
+        onError(response.data.error);
       });
   },
   postReview: (id, review, onSuccess) => (dispatch, _, api) => {

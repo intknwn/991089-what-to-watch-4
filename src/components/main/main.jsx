@@ -1,28 +1,28 @@
 import React from 'react';
-import {string, bool, func, arrayOf} from 'prop-types';
-import {Link} from 'react-router-dom';
-import Catalog from '../catalog/catalog.jsx';
-import {movieType} from '../../types/types.js';
+import {arrayOf, bool, func, string} from 'prop-types';
+import {Catalog, Footer, Header} from '../components.jsx';
+import {withActiveItem} from '../../hocs/hocs.js';
+import {movieType, userType} from '../../types/types.js';
+import {AppRoute, ClassName, Genre} from '../../const.js';
 import history from '../../history.js';
-import {AppRoute, Genre} from '../../const.js';
-import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
 
 const CatalogWrapped = withActiveItem(Catalog);
 
 const Main = ({
-  promoMovie: {
-    id,
-    name,
-    genre,
-    year,
-    backgroundImg,
-    posterImg,
-    isFavorite,
-  },
-  movies,
   genres,
   isAuthorized,
-  setFavoriteStatus
+  movies,
+  promoMovie: {
+    backgroundImg,
+    genre,
+    id,
+    isFavorite,
+    name,
+    posterImg,
+    year,
+  },
+  setFavoriteStatus,
+  user,
 }) => {
   const playClickHandler = () => history.push(`${AppRoute.PLAYER}/${id}`);
   const myListClickHandler = () => setFavoriteStatus(id, isFavorite);
@@ -34,25 +34,12 @@ const Main = ({
           <img src={backgroundImg} alt={name} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
-        <header className="page-header movie-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-          <div className="user-block">
-            {isAuthorized ?
-              <div className="user-block__avatar">
-                <Link to="/mylist"><img src="img/avatar.jpg" alt="User avatar" width={63} height={63} /></Link>
-              </div> :
-              <div className="user-block">
-                <Link to="/sign-in" className="user-block__link">Sign in</Link>
-              </div>
-            }
-          </div>
-        </header>
+        <Header
+          className={ClassName.MOVIE_PAGE_HEADER}
+          isAuthorized={isAuthorized}
+          isEmpty={true}
+          user={user}
+        />
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
@@ -93,29 +80,19 @@ const Main = ({
           genres={genres}
           activeItem={Genre.ALL_GENRES}
         />
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </div>
   );
 };
 
 Main.propTypes = {
-  promoMovie: movieType.isRequired,
-  movies: arrayOf(movieType).isRequired,
   genres: arrayOf(string).isRequired,
   isAuthorized: bool.isRequired,
+  movies: arrayOf(movieType).isRequired,
+  promoMovie: movieType.isRequired,
   setFavoriteStatus: func.isRequired,
+  user: userType.isRequired,
 };
 
 export default Main;

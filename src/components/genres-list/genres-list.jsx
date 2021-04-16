@@ -1,7 +1,11 @@
 import React from 'react';
-import {string, func, arrayOf} from 'prop-types';
+import {arrayOf, func, string} from 'prop-types';
 
-const GenresList = ({genres, selectedGenre, onGenreClick}) => {
+const GenresList = ({
+  genres,
+  onGenreClick,
+  selectedGenre,
+}) => {
   return (
     <ul className="catalog__genres-list">
       {genres.map((genre) => {
@@ -29,8 +33,8 @@ const GenresList = ({genres, selectedGenre, onGenreClick}) => {
 
 GenresList.propTypes = {
   genres: arrayOf(string).isRequired,
-  selectedGenre: string.isRequired,
   onGenreClick: func.isRequired,
+  selectedGenre: string.isRequired,
 };
 
 export default GenresList;

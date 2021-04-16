@@ -60,12 +60,17 @@ exports[`MoviePage component should render page with movie details 1`] = `
           <div
             className="user-block__avatar"
           >
-            <img
-              alt="User avatar"
-              height={63}
-              src="/img/avatar.jpg"
-              width={63}
-            />
+            <a
+              href="/mylist"
+              onClick={[Function]}
+            >
+              <img
+                alt="Oliver.conner@gmail.com"
+                height={63}
+                src="https://4.react.pages.academy/img/1.png"
+                width={63}
+              />
+            </a>
           </div>
         </div>
       </header>

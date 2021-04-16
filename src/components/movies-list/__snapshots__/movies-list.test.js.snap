@@ -25,7 +25,8 @@ exports[`MoviesList component should render list of movies 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/movies/1"
+        onClick={[Function]}
       >
         Fantastic Beasts: The Crimes of Grindelwald
       </a>
@@ -52,7 +53,8 @@ exports[`MoviesList component should render list of movies 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/movies/2"
+        onClick={[Function]}
       >
         Bohemian Rhapsody
       </a>
@@ -79,7 +81,8 @@ exports[`MoviesList component should render list of movies 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/movies/3"
+        onClick={[Function]}
       >
         We need to talk about Kevin
       </a>
@@ -106,7 +109,8 @@ exports[`MoviesList component should render list of movies 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/movies/4"
+        onClick={[Function]}
       >
         What We Do in the Shadows
       </a>

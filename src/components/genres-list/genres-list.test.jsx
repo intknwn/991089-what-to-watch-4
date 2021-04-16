@@ -18,8 +18,8 @@ it(`GenresList component should renders correctly`, () => {
   const tree = renderer.create(
       <GenresList
         genres={genres}
-        selectedGenre={Genre.ALL_GENRES}
         onGenreClick={() => {}}
+        selectedGenre={Genre.ALL_GENRES}
       />
   ).toJSON();
 

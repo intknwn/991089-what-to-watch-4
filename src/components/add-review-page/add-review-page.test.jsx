@@ -64,22 +64,31 @@ const movies = [{
   cast: [`Kayvan Novak`, `Matt Berry`, `Natasia Demetriou`],
 }];
 
+const user = {
+  id: 1,
+  email: `Oliver.conner@gmail.com`,
+  name: `Oliver.conner`,
+  avatarSrc: `/img/1.png`,
+};
+
 it(`AddReviewPage should render correctly`, () => {
   const tree = renderer.create(
       <BrowserRouter>
         <AddReviewPage
-          movie={movies[0]}
-          movies={movies}
-          setMovie={() => {}}
           comment={`Sick movie y'know`}
-          rating={5}
-          onRatingChange={() => {}}
-          onCommentChange={() => {}}
+          isAuthorized={true}
           isDisabled={false}
           isLoading={false}
-          onSubmit={() => {}}
-          match={{params: {id: `1`}}}
           location={{}}
+          match={{params: {id: `1`}}}
+          movie={movies[0]}
+          movies={movies}
+          onCommentChange={() => {}}
+          onRatingChange={() => {}}
+          onSubmit={() => {}}
+          rating={5}
+          setMovie={() => {}}
+          user={user}
         />
       </BrowserRouter>
   );

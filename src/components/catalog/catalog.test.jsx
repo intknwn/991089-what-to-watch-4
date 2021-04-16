@@ -1,5 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {BrowserRouter} from 'react-router-dom';
 import Catalog from './catalog.jsx';
 
 const movies = [{
@@ -77,12 +78,14 @@ const genres = [
 it(`Catalog component should render movies catalog`, () => {
   const tree = renderer
       .create(
-          <Catalog
-            movies={movies}
-            genres={genres}
-            activeItem={`All genres`}
-            activeItemChangeHandler={() => {}}
-          />
+          <BrowserRouter>
+            <Catalog
+              activeItem={`All genres`}
+              activeItemChangeHandler={() => {}}
+              genres={genres}
+              movies={movies}
+            />
+          </BrowserRouter>
       )
       .toJSON();
 
